@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="addCustomer.png" />
+    <None Remove="addEmployee.png" />
+    <None Remove="AddTruck.png" />
+    <None Remove="exit.png" />
+    <None Remove="truckrental.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Veiw\EmployeeCustomerMangement\" />
+    <Folder Include="Veiw\RentalManagement\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="addCustomer.png" />
+    <Resource Include="addEmployee.png" />
+    <Resource Include="AddTruck.png" />
+    <Resource Include="exit.png" />
+    <Resource Include="truckrental.png" />
+  </ItemGroup>
+
+</Project>

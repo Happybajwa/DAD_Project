@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="TruckRental_Project.Veiw.StockManagement.addNewTruck"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TruckRental_Project.Veiw.StockManagement"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="0" Background="CornflowerBlue" Grid.ColumnSpan="3" Margin="0,0,0.333,0">
+            <TextBlock Text="Truck Stock Management" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="White"></TextBlock>
+        </Border>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="CornflowerBlue">
+            <Menu IsMainMenu="True">
+                <MenuItem  Header="Add New Features" FontSize="14" Cursor="Hand" BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addNewFeatureMenu"></MenuItem>
+                <MenuItem  Header="Add Truck Model" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addTruckModelMenu"></MenuItem>
+                <MenuItem  Header="Available Trucks" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="AvailableTruckMenu"></MenuItem>
+                <MenuItem  Header="Update Truck Info" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="UpdateTruckMenu"></MenuItem>
+            </Menu>
+        </StackPanel>
+        <StackPanel Background="White" Grid.Row="3" Grid.ColumnSpan="1">
+            <Label Content="Registration Number" Padding="10" Margin="20 0 0 0"/>
+            <Label Content="Colour" Padding="10" Margin="20 0 0 0"/>
+            <Label Content="WOF Expiry" Padding="10" Margin="20 0 0 0"/>
+            <Label Content="Registtration Expiry" Padding="10" Margin="20 0 0 0"/>
+            <Label Content="Import Date" Padding="10" Margin="20 0 0 0"/>
+            <Label Content="Manufacturing Year" Padding="10" Margin="20 0 0 0"/>
+            <Label Content="Status" Padding="10" Margin="20 0 0 0"/>
+            <Label Content="Fuel Type" Padding="10" Margin="20 0 0 0"/>
+            <Label Content="Transmission" Padding="10" Margin="20 0 0 0"/>
+            <Label Content="Dailt Rent" Padding="10" Margin="20 0 0 0"/>
+            <Label Content="Advanced Deposite Required" Padding="10" Margin="20 0 0 0" />
+            <Label Content="Select Truck Model" Padding="10" Margin="20 30 20 15" />
+            <Label Content="Select Truck Featurs" Padding="10" Margin="20 68 20 45" />
+        </StackPanel>
+        <StackPanel Background="White" Grid.Row="2" Grid.ColumnSpan="3" Margin="207,0,0,2" >
+            <TextBox x:Name="registraionTextBox" Margin="10 5 35 5" Height="25" BorderThickness="1" BorderBrush="CornflowerBlue"/>
+            <TextBox x:Name="colourTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <DatePicker Name="WOFDatePicker" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <DatePicker Name="RegistrationExpiryDatePicker" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <DatePicker Name="ImportDatePicker" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <TextBox x:Name="ManufacturingTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <ComboBox Name="statusComboBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue">
+                <ComboBoxItem IsSelected="True">Available for rent</ComboBoxItem>
+                <ComboBoxItem>Rented</ComboBoxItem>
+                <ComboBoxItem>Under Repair</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Name="FuelTypeComboBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue">
+                <ComboBoxItem  IsSelected="True">Diesel</ComboBoxItem>
+                <ComboBoxItem>Petrol</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Name="TransmissionComboBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue">
+                <ComboBoxItem  IsSelected="True">Manual</ComboBoxItem>
+                <ComboBoxItem>Auotmatic</ComboBoxItem>
+            </ComboBox>
+            <TextBox x:Name="DailyRentTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <TextBox x:Name="advanceDepositeTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <ListBox x:Name="truckModelListBox" Height="110" Margin="10 5 35 5" ScrollViewer.CanContentScroll="True" BorderBrush="CornflowerBlue" SelectionMode="Single">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="2 2" Orientation="Horizontal">
+                                <TextBlock Text="Model Name: " FontWeight="Bold"/>
+                                <TextBlock Width="50" Text="{Binding Model}"/>
+                                <TextBlock Text="Manufacturer: " FontWeight="Bold"/>
+                                <TextBlock Width="50" Text="{Binding Manufacturer}"/>
+                                <TextBlock Text="Size: " FontWeight="Bold"/>
+                                <TextBlock Width="70" Text="{Binding Size}" />
+                                <TextBlock Text="Seats: " FontWeight="Bold"/>
+                                <TextBlock Width="50" Text="{Binding Seats}"/>
+                                <TextBlock Text="Doors: " FontWeight="Bold"/>
+                                <TextBlock Width="50" Text="{Binding Doors}" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox x:Name="truckFeatureListBox" SelectionMode="Multiple" Height="110" Margin="10 5 35 5" ScrollViewer.CanContentScroll="True" BorderBrush="CornflowerBlue">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,2">
+                            <StackPanel Margin="2 2" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Description}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Name="addNewTruckButton" Content="Add New Truck" FontFamily="Century Gothic"
+             Foreground="white" Background="CornflowerBlue" BorderThickness="0"
+             Padding="0 15" Margin="0 0" Width="200" FontSize="14" Click="addNewTruckButton_Click">
+            </Button>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

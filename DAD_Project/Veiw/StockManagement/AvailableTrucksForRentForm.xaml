@@ -1,0 +1,44 @@
+﻿<Window x:Class="TruckRental_Project.Veiw.StockManagement.AvailableTrucksForRentForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TruckRental_Project.Veiw.StockManagement"
+        mc:Ignorable="d" ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow"
+        MaxHeight="650" MaxWidth="900" MinHeight="550" MinWidth="700"
+        Title="AvailableTrucksForRentForm" Height="650" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Background="White" Margin="40 40" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Status" Width="60" Margin="0 0 70 0"/>
+            <ComboBox x:Name="statusComboBox" Width="180" Margin="0 0 70 0" BorderBrush="CornflowerBlue">
+                <ComboBoxItem IsSelected="True" Content="Available for rent"/>
+                <ComboBoxItem Content="Rented"/>
+                <ComboBoxItem Content="Under Repair"/>
+            </ComboBox>
+            <Button Name="searchButton" Content="Search" FontFamily="Century Gothic"
+             Foreground="white" Background="CornflowerBlue" BorderThickness="0" Width="160"
+             FontSize="14" Click="searchButton_Click">
+            </Button>
+        </StackPanel>
+        <StackPanel Background="White" Margin="40 40" Grid.Row="1">
+            <DataGrid x:Name="truckDataGrid" Margin="10 10 10 10" HorizontalAlignment="Center" DataContext="{Binding Source=trucks}" CanUserAddRows="False" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Registration No" Binding="{Binding Path=RegistrationNumber}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="WOF Expiry" Binding="{Binding Path=WofexpiryDate}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Registration Expiry" Binding="{Binding Path=RegistrationExpiryDate}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Manufacturing Year" Binding="{Binding Path=ManufactureYear}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fuel type" Binding="{Binding Path=FuelType}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Transmission" Binding="{Binding Path=Transmission}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=DailyRentalPrice}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Model" Binding="{Binding Path=TruckModel.Model}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>
