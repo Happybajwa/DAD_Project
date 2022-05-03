@@ -25,6 +25,7 @@
             <Menu IsMainMenu="True">
                 <MenuItem  Header="Add New Features" FontSize="14" Cursor="Hand" BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addNewFeatureMenu"></MenuItem>
                 <MenuItem  Header="Add Truck Model" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addTruckModelMenu"></MenuItem>
+                <MenuItem  Header="Add Features to Truck" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="AddFeaturesToTruckMenu"></MenuItem>
                 <MenuItem  Header="Available Trucks" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="AvailableTruckMenu"></MenuItem>
                 <MenuItem  Header="Update Truck Info" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="UpdateTruckMenu"></MenuItem>
             </Menu>
@@ -44,7 +45,7 @@
             <Label Content="Select Truck Model" Padding="10" Margin="20 30 20 15" />
             <Label Content="Select Truck Featurs" Padding="10" Margin="20 68 20 45" />
         </StackPanel>
-        <StackPanel Background="White" Grid.Row="2" Grid.ColumnSpan="3" Margin="207,0,0,2" >
+        <StackPanel x:Name="addNewTruckPanel" Background="White" Grid.Row="2" Grid.ColumnSpan="3" Margin="207,0,0,2" >
             <TextBox x:Name="registraionTextBox" Margin="10 5 35 5" Height="25" BorderThickness="1" BorderBrush="CornflowerBlue"/>
             <TextBox x:Name="colourTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
             <DatePicker Name="WOFDatePicker" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
@@ -62,7 +63,7 @@
             </ComboBox>
             <ComboBox Name="TransmissionComboBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue">
                 <ComboBoxItem  IsSelected="True">Manual</ComboBoxItem>
-                <ComboBoxItem>Auotmatic</ComboBoxItem>
+                <ComboBoxItem>Automatic</ComboBoxItem>
             </ComboBox>
             <TextBox x:Name="DailyRentTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
             <TextBox x:Name="advanceDepositeTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DAD_Project.DB;
+using DAD_Project.Veiw.StockManagement;
 
 namespace TruckRental_Project.Veiw.StockManagement
 {
@@ -83,23 +84,34 @@ namespace TruckRental_Project.Veiw.StockManagement
                 NewTruck.DateImported = ImportDatePicker.SelectedDate.Value;
                 NewTruck.ManufactureYear = int.Parse(ManufacturingTextBox.Text);
                 NewTruck.Status = statusComboBox.Text;
-                NewTruck.FuelType = FuelTypeComboBox.Text;
-                NewTruck.Transmission = TransmissionComboBox.Text;
+                NewTruck.FuelType = FuelTypeComboBox.Text.ToLower();
+                NewTruck.Transmission = TransmissionComboBox.Text.ToLower();
                 NewTruck.DailyRentalPrice = int.Parse(DailyRentTextBox.Text);
                 NewTruck.AdvanceDepositRequired = int.Parse(advanceDepositeTextBox.Text);
                 var truckModel = truckModelListBox.SelectedItem as TruckModel;
                 NewTruck.TruckModelId = truckModel.ModelId;
-                IList<TruckFeature> featureCollection = new List<TruckFeature>();
-                featureCollection.Add((TruckFeature)truckFeatureListBox.SelectedItems);
-                using (DAD_HarpreetContext ctx = new())
+                try
                 {
-                    ctx.IndividualTrucks.Add(NewTruck);
-                    ctx.SaveChanges();
-                    MessageBox.Show("Truck Addred");
+                    DAO.AddNewTruck(NewTruck);
+                    MessageBox.Show("Truck has been added to system successfully");
+                    var truck = DAO.getTruckByRegistrationNumber(NewTruck.RegistrationNumber);
+
+                    //inputValidation.ClearAllTextBoxes(addNewTruckPanel);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+               
 
 
             }
+        }
+
+        private void AddFeaturesToTruckMenu(object sender, RoutedEventArgs e)
+        {
+            AddfeaturesToTruck form = new();
+            form.ShowDialog();
         }
     }
 }

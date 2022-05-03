@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAD_Project.DB;
+using System.Windows.Controls;
+using System.Windows;
 
 namespace TruckRental_Project
 {
@@ -17,15 +19,15 @@ namespace TruckRental_Project
             //User will be notified
             using (DAD_HarpreetContext ctx = new())
             {
-                if (ctx.IndividualTrucks.Any(truck => truck.RegistrationNumber == registration))
+                var regoExists = ctx.IndividualTrucks.Where(t => t.RegistrationNumber == registration).FirstOrDefault();
+                if(regoExists != null)
                 {
                     return true;
                 }
                 else
                 {
                     return false;
-                }
-                 
+                }       
             }
         }
         public static void AddNewTruck(IndividualTruck truck)
@@ -115,6 +117,53 @@ namespace TruckRental_Project
             }
         }  
 
+
+        //adding a feature to truck before adding we are checking that
+        //truck and feature are not null in parameters
+        public static void AddFeatureToTruck(IndividualTruck truck, TruckFeature feature)
+        {
+            if (truck != null || feature != null)
+                using (DAD_HarpreetContext ctx = new())
+                {
+                    TruckFeatureAssociation association = new TruckFeatureAssociation();
+                    association.TruckId = truck.TruckId;
+                    association.FeatureId = feature.FeatureId;
+                    ctx.TruckFeatureAssociations.Add(association);
+                    ctx.SaveChanges();
+                }
+            else
+            {
+                throw new Exception("Please make sure that you have searched a existing  truck and selected a feature to add");
+            }
+        }
+
+
+        //performing search to know if truck already have some features or not
+        //for that we are using truck id as we know truck feature association only have truck id and feature id
+        public static List<TruckFeatureAssociation> DoesTruckHasFeatureExistedAlready(int truckId)
+        {
+            using (DAD_HarpreetContext ctx = new())
+            {
+                return ctx.TruckFeatureAssociations.Include(feature => feature.Feature).Where(truck => truck.TruckId == truckId).ToList();
+            }
+        }
+
+        //Here we are checking that is user assigning the same feature to truck that truck already has
+        public static bool DoesTruckHasThisFeature(int truckId, int featureId)
+        {
+            using (DAD_HarpreetContext ctx = new())
+            {
+                var truck = ctx.TruckFeatureAssociations.Where(p => p.TruckId == truckId && p.FeatureId == featureId).FirstOrDefault();
+                if(truck == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
         public static bool IsTruckFeatureExists(string feature)
         {
             //We are checking if the feature we are trying to add in system -
@@ -130,6 +179,33 @@ namespace TruckRental_Project
                 {
                     return true;
                 }
+            }
+        }
+
+        //here we are searching that existing truck using its registration number
+        public static IndividualTruck getTruckByRegistrationNumber(string rego)
+        {
+            using (DAD_HarpreetContext ctx = new())
+            {
+                var truck = ctx.IndividualTrucks.Include(t => t.TruckModel).Where(t => t.RegistrationNumber == rego).FirstOrDefault();
+                if (truck != null)
+                {
+                    return truck;
+                }
+                else
+                {
+                    throw new Exception("Truck not exists with this registration number");
+                }
+
+            }
+        }
+
+        //We are returing a list of all available truck features in the system
+        public static List<TruckFeature> getAllTruckFeatures()
+        {
+            using (DAD_HarpreetContext ctx = new())
+            {
+                return ctx.TruckFeatures.ToList();
             }
         }
     }
