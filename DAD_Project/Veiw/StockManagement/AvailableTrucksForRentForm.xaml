@@ -29,14 +29,14 @@
             <DataGrid x:Name="truckDataGrid" Margin="10 10 10 10" HorizontalAlignment="Center" DataContext="{Binding Source=trucks}" CanUserAddRows="False" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Registration No" Binding="{Binding Path=RegistrationNumber}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Model" Binding="{Binding Path=TruckModel.Model}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="WOF Expiry" Binding="{Binding Path=WofexpiryDate}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Registration Expiry" Binding="{Binding Path=RegistrationExpiryDate}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Manufacturing Year" Binding="{Binding Path=ManufactureYear}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Fuel type" Binding="{Binding Path=FuelType}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Transmission" Binding="{Binding Path=Transmission}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=DailyRentalPrice}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Model" Binding="{Binding Path=TruckModel.Model}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="WOF Expiry" Binding="{Binding Path=WofexpiryDate}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Registration Expiry" Binding="{Binding Path=RegistrationExpiryDate}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Manufacturing Year" Binding="{Binding Path=ManufactureYear}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

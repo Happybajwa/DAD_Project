@@ -45,7 +45,7 @@
                             </Border>
                             <Button Name="CustomerManagementButton" Content="Customer Management" FontFamily="Century Gothic"
                                     Foreground="white" Background="CornflowerBlue" BorderThickness="0"
-                                    Padding="0 15" Margin="0" Width="170" FontSize="11">
+                                    Padding="0 15" Margin="0" Width="170" FontSize="11" Click="CustomerManagementButton_Click">
                             </Button>
                         </StackPanel>
                     </Border>

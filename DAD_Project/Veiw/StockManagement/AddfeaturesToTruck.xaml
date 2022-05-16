@@ -40,7 +40,6 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
             <Label Content="Select Features: " Margin="10 90"/>

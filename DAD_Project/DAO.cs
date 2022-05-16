@@ -95,7 +95,7 @@ namespace TruckRental_Project
         {
             using (DAD_HarpreetContext ctx = new())
             {
-                var TruckModel = ctx.TruckModels.Where(model => model.Model == name).FirstOrDefault();
+                var TruckModel = ctx.TruckModels.Include(truck => truck.IndividualTrucks).Where(model => model.Model == name).FirstOrDefault();
                 if(TruckModel != null)
                 {
                     return TruckModel;
@@ -206,6 +206,14 @@ namespace TruckRental_Project
             using (DAD_HarpreetContext ctx = new())
             {
                 return ctx.TruckFeatures.ToList();
+            }
+        }
+
+        public static List<TruckFeatureAssociation> searchTruckFeatureAssociationByTruckID(int id)
+        {
+            using(DAD_HarpreetContext ctx = new())
+            {
+                return ctx.TruckFeatureAssociations.Include(feature => feature.Feature).Where(t => t.TruckId == id).ToList();
             }
         }
     }

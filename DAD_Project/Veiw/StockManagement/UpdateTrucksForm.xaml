@@ -6,37 +6,50 @@
         xmlns:local="clr-namespace:TruckRental_Project.Veiw.StockManagement"
         mc:Ignorable="d" ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow"
-        MaxHeight="450" MaxWidth="700" MinHeight="450" MinWidth="700"
+        MaxHeight="450" MaxWidth="1000" MinHeight="550" MinWidth="750"
         Title="Update Trucks Form">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <StackPanel Background="White" Margin="20 20" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Background="White" Margin="10 10" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="Enter Truck Model Number"  Margin="0 0 70 0"/>
-            <TextBox x:Name="truckModeltextBox" Width="180" Margin="10 0 40 0"/>
+            <TextBox x:Name="truckModeltextBox" Width="120" Height="25" Margin="10 0 40 0"/>
             <Button Name="searchButton" Content="Search" FontFamily="Century Gothic"
-             Foreground="white" Background="CornflowerBlue" BorderThickness="0" Width="160"
-             FontSize="14">
+             Foreground="white" Background="CornflowerBlue" BorderThickness="0" Width="120"
+             FontSize="14" Click="searchButton_Click" >
             </Button>
-            
+            <Button Name="updateButton" Content=" Update Truck Info " FontFamily="Century Gothic"
+             Foreground="white" Background="CornflowerBlue" BorderThickness="0"
+             FontSize="14" Click="updateButton_Click" Margin="20 0 40 0">
+            </Button>
         </StackPanel>
         <StackPanel Background="White" Margin="20 20" Grid.Row="1" Orientation="Vertical">
-            <Button Name="updateButton" Content="Update Truck Information" FontFamily="Century Gothic"
-             Foreground="white" Background="CornflowerBlue" BorderThickness="0" Height="33" Margin="0 20" Width="200"
-             FontSize="14" Click="updateButton_Click">
-            </Button>
-            <DataGrid   CanUserAddRows="False"  x:Name="truckList" HorizontalAlignment="Center" DataContext="{Binding Source=trucks}" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn IsReadOnly="True" Header="Truck ID" Binding="{Binding Path=TruckId}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Colour" Binding="{Binding Path=Colour}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=DailyRentalPrice}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Size" Binding="{Binding Path=TruckModel.Size}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Truck Features" Binding="{Binding Path=Features}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Label x:Name="ErrorLable" Foreground="Red" FontSize="16" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal">
+                <DataGrid   CanUserAddRows="False"  x:Name="truckListDataGrid" HorizontalAlignment="Center"
+                            DataContext="{Binding Source=trucks}" Height="200"  AutoGenerateColumns="False" Margin="10 10"
+                            SelectionChanged="truckListDataGrid_SelectionChanged" ScrollViewer.CanContentScroll="True"
+                            SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Header="Truck ID" Binding="{Binding Path=TruckId}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Registration Number" Binding="{Binding Path=RegistrationNumber}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Colour" Binding="{Binding Path=Colour}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=DailyRentalPrice}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Size" Binding="{Binding Path=TruckModel.Size}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid   CanUserAddRows="False"  x:Name="truckFeatureDataGrid" HorizontalAlignment="Center"
+                            DataContext="{Binding Source=trucks}" CanUserResizeColumns="False" CanUserReorderColumns="False" SelectionMode="Single"
+                            AutoGenerateColumns="False" Margin="60 10 10 10">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Header="Truck ID" Binding="{Binding Path=TruckId}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Features" Binding="{Binding Path=Feature.Description}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

@@ -32,6 +32,11 @@ namespace DAD_Project
             DisplayPanel.Children.Clear();
             DisplayPanel.Children.Add(addTruckForm);    
         }
+
+        private void CustomerManagementButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
  
 
