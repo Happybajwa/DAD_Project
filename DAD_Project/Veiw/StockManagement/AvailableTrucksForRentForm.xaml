@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TruckRental_Project.Veiw.StockManagement"
         mc:Ignorable="d" ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow"
-        MaxHeight="650" MaxWidth="900" MinHeight="550" MinWidth="700"
+        MaxHeight="650" MaxWidth="900" MinHeight="580" MinWidth="700"
         Title="AvailableTrucksForRentForm" Height="650" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -26,7 +26,8 @@
             </Button>
         </StackPanel>
         <StackPanel Background="White" Margin="40 40" Grid.Row="1">
-            <DataGrid x:Name="truckDataGrid" Margin="10 10 10 10" HorizontalAlignment="Center" DataContext="{Binding Source=trucks}" CanUserAddRows="False" AutoGenerateColumns="False">
+            <DataGrid x:Name="truckDataGrid" IsReadOnly="True" Margin="10 10 10 10" HorizontalAlignment="Center" Style="{DynamicResource DataGridStyle1}"
+                      DataContext="{Binding Source=trucks}" CanUserAddRows="False" AutoGenerateColumns="False" Height="300">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Registration No" Binding="{Binding Path=RegistrationNumber}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Model" Binding="{Binding Path=TruckModel.Model}"></DataGridTextColumn>
@@ -34,8 +35,8 @@
                     <DataGridTextColumn Header="Fuel type" Binding="{Binding Path=FuelType}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Transmission" Binding="{Binding Path=Transmission}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=DailyRentalPrice}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="WOF Expiry" Binding="{Binding Path=WofexpiryDate}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Registration Expiry" Binding="{Binding Path=RegistrationExpiryDate}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="WOF Expiry" Binding="{Binding Path=WofexpiryDate, StringFormat=\{0:dd.MM.yy\}}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Registration Expiry" Binding="{Binding Path=RegistrationExpiryDate, StringFormat=\{0:dd.MM.yy\}}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Manufacturing Year" Binding="{Binding Path=ManufactureYear}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>

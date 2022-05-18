@@ -149,7 +149,7 @@ namespace TruckRental_Project
         }
 
         //Here we are checking that is user assigning the same feature to truck that truck already has
-        public static bool DoesTruckHasThisFeature(int truckId, int featureId)
+        public static bool DoesTruckHasThisFeatureAlready(int truckId, int featureId)
         {
             using (DAD_HarpreetContext ctx = new())
             {
@@ -187,16 +187,7 @@ namespace TruckRental_Project
         {
             using (DAD_HarpreetContext ctx = new())
             {
-                var truck = ctx.IndividualTrucks.Include(t => t.TruckModel).Where(t => t.RegistrationNumber == rego).FirstOrDefault();
-                if (truck != null)
-                {
-                    return truck;
-                }
-                else
-                {
-                    throw new Exception("Truck not exists with this registration number");
-                }
-
+                return ctx.IndividualTrucks.Include(t => t.TruckModel).Where(t => t.RegistrationNumber == rego).FirstOrDefault();
             }
         }
 
@@ -209,11 +200,22 @@ namespace TruckRental_Project
             }
         }
 
+        //searching truck and feature association using truck id
+        //it wil return us all features linked to the given truck id
         public static List<TruckFeatureAssociation> searchTruckFeatureAssociationByTruckID(int id)
         {
             using(DAD_HarpreetContext ctx = new())
             {
                 return ctx.TruckFeatureAssociations.Include(feature => feature.Feature).Where(t => t.TruckId == id).ToList();
+            }
+        }
+
+        public static void RemoveTruckFeature(TruckFeatureAssociation feature)
+        {
+            using (DAD_HarpreetContext ctx = new())
+            {
+                ctx.TruckFeatureAssociations.Remove(feature);
+                ctx.SaveChanges();
             }
         }
     }

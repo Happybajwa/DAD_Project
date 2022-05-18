@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,11 +24,14 @@ namespace DAD_Project.Veiw.StockManagement
     /// 
     public partial class AddfeaturesToTruck : Window
     {
+        IndividualTruck truck;
         
         public AddfeaturesToTruck()
         {
             InitializeComponent();
-            featureDataGrid.ItemsSource = DAO.getAllTruckFeatures();
+            systemTruckFeatureListBox.ItemsSource = DAO.getAllTruckFeatures();
+            afterSearchPanel.Visibility = Visibility.Hidden;
+            this.addFeatureToTruckButton.IsEnabled = false;
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
@@ -38,39 +42,80 @@ namespace DAD_Project.Veiw.StockManagement
             }
             else
             {
-                var truck = DAO.getTruckByRegistrationNumber(searchTruckTextBox.Text);
-                TruckModelLable.Content = "Truck Model Name\n\n" +truck.TruckModel.Model.ToString();
-                TruckRegoLable.Content = "Truck Manufacturer year\n\n" + truck.ManufactureYear.ToString();
-                var truckExistingFeatures = DAO.DoesTruckHasFeatureExistedAlready(truck.TruckId);
-                if(truckExistingFeatures.Count == 0)
+                truck = DAO.getTruckByRegistrationNumber(searchTruckTextBox.Text);
+                if (truck != null)
                 {
-                    TruckFeatureLable.Content = "This Truck Doesnt have any features";
+                    TruckModelLable.Content = "Truck Model:  " + truck.TruckModel.Model.ToString();
+                    TruckMenfLable.Content = "Truck Manufacturer year:  " + truck.ManufactureYear.ToString();
+                    var truckExistingFeatures = DAO.DoesTruckHasFeatureExistedAlready(truck.TruckId);
+                    afterSearchPanel.Visibility = Visibility.Visible;
+                    if (truckExistingFeatures.Count == 0)
+                    {
+                        TruckFeatureLable.Content = "This Truck Doesnt have any features";
+                    }
+                    else
+                    {
+                        existingTruckFeatureListBox.ItemsSource = truckExistingFeatures.ToList();
+                    }
                 }
                 else
                 {
-                    existingTruckFeatureListBox.ItemsSource = truckExistingFeatures.ToList();
+                    MessageBox.Show("Truck not found with the given registration number");
                 }
             }
+            
         }
 
         private void addfeatureToTruck_Click(object sender, RoutedEventArgs e)
         {
-            var truck = DAO.getTruckByRegistrationNumber(searchTruckTextBox.Text);
-            if(truck != null && featureDataGrid.SelectedItem != null)
+            TruckFeature feature = systemTruckFeatureListBox.SelectedItem as TruckFeature;
+            if (DAO.DoesTruckHasThisFeatureAlready(truck.TruckId, feature.FeatureId) == true)
             {
-                TruckFeature feature = featureDataGrid.SelectedItem as TruckFeature;
-                if(DAO.DoesTruckHasThisFeature(truck.TruckId, feature.FeatureId) == true)
-                {
-                    MessageBox.Show("Trcuk has this feature already. Please Select another one");
-                }
-                else
-                {
-                    DAO.AddFeatureToTruck(truck, feature);
-                    MessageBox.Show("Feature now has been added to truck");
-                    var truckExistingFeatures = DAO.DoesTruckHasFeatureExistedAlready(truck.TruckId);
-                    existingTruckFeatureListBox.ItemsSource = truckExistingFeatures.ToList();
-                }
-            }         
-        }    
+                MessageBox.Show("Trcuk has this feature already.");
+            }
+            else
+            {
+                DAO.AddFeatureToTruck(truck, feature);
+                MessageBox.Show("Feature now has been added to truck");
+                var truckExistingFeatures = DAO.DoesTruckHasFeatureExistedAlready(truck.TruckId);
+                existingTruckFeatureListBox.ItemsSource = truckExistingFeatures.ToList();
+            }
+        }
+
+        private void systemTruckFeatureListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.addFeatureToTruckButton.IsEnabled = true;
+        }
+        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-zA-Z0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+            if (e.Handled == true)
+            {
+                var textbox = sender as TextBox;
+                textbox.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                var textbox = sender as TextBox;
+                textbox.BorderBrush = new SolidColorBrush(Colors.Green);
+            }
+        }
+
+        private void searchTruckTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            Regex regex = new Regex("[^a-zA-Z0-9]+");
+            e.Handled = regex.IsMatch(e.Key.ToString());
+            if (e.Handled == true)
+            {
+                var textbox = sender as TextBox;
+                textbox.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                var textbox = sender as TextBox;
+                textbox.BorderBrush = new SolidColorBrush(Colors.Green);
+            }
+        }
     }
 }

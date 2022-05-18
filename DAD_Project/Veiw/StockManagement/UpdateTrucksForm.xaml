@@ -14,7 +14,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <StackPanel Background="White" Margin="10 10" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Content="Enter Truck Model Number"  Margin="0 0 70 0"/>
+            <Label Content="Enter Truck Model Number"  Margin="0 0 10 0"/>
             <TextBox x:Name="truckModeltextBox" Width="120" Height="25" Margin="10 0 40 0"/>
             <Button Name="searchButton" Content="Search" FontFamily="Century Gothic"
              Foreground="white" Background="CornflowerBlue" BorderThickness="0" Width="120"
@@ -22,30 +22,35 @@
             </Button>
             <Button Name="updateButton" Content=" Update Truck Info " FontFamily="Century Gothic"
              Foreground="white" Background="CornflowerBlue" BorderThickness="0"
-             FontSize="14" Click="updateButton_Click" Margin="20 0 40 0">
+             FontSize="14" Click="updateButton_Click" Margin="20 0 20 0">
+            </Button>
+            <Button Name="removeFeatureButton" Content=" Remove Feature " FontFamily="Century Gothic"
+             Foreground="white" Background="CornflowerBlue" BorderThickness="0"
+             FontSize="14" Click="removeFeatureButton_Click">
             </Button>
         </StackPanel>
         <StackPanel Background="White" Margin="20 20" Grid.Row="1" Orientation="Vertical">
             <Label x:Name="ErrorLable" Foreground="Red" FontSize="16" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal">
-                <DataGrid   CanUserAddRows="False"  x:Name="truckListDataGrid" HorizontalAlignment="Center"
-                            DataContext="{Binding Source=trucks}" Height="200"  AutoGenerateColumns="False" Margin="10 10"
+                <DataGrid   CanUserAddRows="False"  x:Name="truckListDataGrid" HorizontalAlignment="Center" Style="{DynamicResource DataGridStyle1}"
+                            DataContext="{Binding Source=trucks}"  Height="200"  AutoGenerateColumns="False" Margin="10 10"
                             SelectionChanged="truckListDataGrid_SelectionChanged" ScrollViewer.CanContentScroll="True"
                             SelectionMode="Single" CanUserResizeColumns="False" CanUserReorderColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn IsReadOnly="True" Header="Truck ID" Binding="{Binding Path=TruckId}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Registration Number" Binding="{Binding Path=RegistrationNumber}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Registration Number" IsReadOnly="True" Binding="{Binding Path=RegistrationNumber}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="WOF Expiry" Binding="{Binding Path=WofexpiryDate, StringFormat=\{0:dd.MM.yy\}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Rego Expiry" Binding="{Binding Path=RegistrationExpiryDate, StringFormat=\{0:dd.MM.yy\}}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Colour" Binding="{Binding Path=Colour}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=DailyRentalPrice}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Size" Binding="{Binding Path=TruckModel.Size}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=AdvanceDepositRequired}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <DataGrid   CanUserAddRows="False"  x:Name="truckFeatureDataGrid" HorizontalAlignment="Center"
-                            DataContext="{Binding Source=trucks}" CanUserResizeColumns="False" CanUserReorderColumns="False" SelectionMode="Single"
-                            AutoGenerateColumns="False" Margin="60 10 10 10">
+                <DataGrid CanUserAddRows="False"  x:Name="truckFeatureDataGrid" IsReadOnly="True" HorizontalAlignment="Center" Style="{DynamicResource DataGridStyle1}"
+                          DataContext="{Binding Source=trucks}" CanUserResizeColumns="False" CanUserReorderColumns="False"
+                          AutoGenerateColumns="False" Margin="20 10 10 10">
                     <DataGrid.Columns>
-                        <DataGridTextColumn IsReadOnly="True" Header="Truck ID" Binding="{Binding Path=TruckId}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Truck ID" Binding="{Binding Path=TruckId}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Features" Binding="{Binding Path=Feature.Description}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>

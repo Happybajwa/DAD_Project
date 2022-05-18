@@ -20,10 +20,12 @@ namespace TruckRental_Project.Veiw.StockManagement
     /// </summary>
     public partial class UpdateTrucksForm : Window
     {
+        IndividualTruck truck;
         public UpdateTrucksForm()
         {
             InitializeComponent();
             this.updateButton.IsEnabled = false;
+            this.removeFeatureButton.IsEnabled = false;         
         }
 
         private void updateButton_Click(object sender, RoutedEventArgs e)
@@ -47,7 +49,7 @@ namespace TruckRental_Project.Veiw.StockManagement
                 }
                 else
                 {
-                    truckListDataGrid.ItemsSource = truckModel.IndividualTrucks.ToList();
+                    truckListDataGrid.ItemsSource = truckModel.IndividualTrucks.ToList(); 
                     this.updateButton.IsEnabled = true;
                 }
             }
@@ -61,7 +63,7 @@ namespace TruckRental_Project.Veiw.StockManagement
             }
             else
             {
-                var truck = truckListDataGrid.SelectedItem as IndividualTruck;
+                truck = truckListDataGrid.SelectedItem as IndividualTruck;
                 var features = DAO.searchTruckFeatureAssociationByTruckID(truck.TruckId);
                 if(features.Count == 0)
                 {
@@ -71,9 +73,28 @@ namespace TruckRental_Project.Veiw.StockManagement
                 else
                 {
                     ErrorLable.Content = "";
-                    truckFeatureDataGrid.ItemsSource = features;
+                    truckFeatureDataGrid.ItemsSource = features; 
+                    this.removeFeatureButton.IsEnabled = true;
                 }
             }
+        }
+
+        private void removeFeatureButton_Click(object sender, RoutedEventArgs e)
+        {     
+            if(truckFeatureDataGrid.SelectedItem != null)
+            {
+                var truckFeatureAssociation = truckFeatureDataGrid.SelectedItem as TruckFeatureAssociation;
+                DAO.RemoveTruckFeature(truckFeatureAssociation);
+                MessageBox.Show("Truck feature has been removed Successfully");
+                var features = DAO.searchTruckFeatureAssociationByTruckID(truck.TruckId);
+                truckFeatureDataGrid.ItemsSource = features;
+            }
+            else
+            {
+                MessageBox.Show("Please select feature to remove from table.");
+            }
+            
+            
         }
     }
 }

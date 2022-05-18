@@ -7,50 +7,58 @@
         mc:Ignorable="d"
          Title="Add Features to Truck" ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow"
-        MaxHeight="650" MaxWidth="650" MinHeight="650" MinWidth="650">
+        MaxHeight="650" MaxWidth="650" MinHeight="700" MinWidth="650">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.RowSpan="1" Grid.ColumnSpan="2">
+        <StackPanel>
             <Label Content="Enter Truck Registration Number" Margin="20 10"/>
-            <TextBox x:Name="searchTruckTextBox" Height="25" Margin="20 10"/>
+            <TextBox x:Name="searchTruckTextBox" Height="25" Margin="20 10" PreviewTextInput="PreviewTextInput"/>
             <Button Name="searchTruckButton" Content="Search Truck" FontFamily="Century Gothic"
-             Foreground="white" Background="CornflowerBlue" Height="40" BorderThickness="0" Margin="10 10" FontSize="14" Click="searchButton_Click">
+             Foreground="white" Background="CornflowerBlue" Height="40" BorderThickness="0" 
+             Margin="20 10" FontSize="14" Click="searchButton_Click">
             </Button>
-            <StackPanel Orientation="Horizontal">
-                <Label x:Name="TruckModelLable" FontWeight="Bold" Height="55" Margin="20 10"/>
-                <Label x:Name="TruckRegoLable" FontWeight="Bold" Height="55" Margin="20 10"/>
-                <Label x:Name="TruckFeatureLable" Height="30" Foreground="Red"/>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="TruckModelLable" Foreground="Green" FontWeight="Bold" Height="30" Margin="20 5"/>
+                    <Label x:Name="TruckMenfLable" FontWeight="Bold" Foreground="Green" Height="30" Margin="20 5"/>
+                    <Label x:Name="TruckFeatureLable" Height="30" Foreground="Red"/>
+                </StackPanel>
+                <StackPanel Name="afterSearchPanel">
+                    <Label Content="Existing Truck Features" FontWeight="Bold" Margin="20 5"/>
+                    <ListBox x:Name="existingTruckFeatureListBox" Height="130" Margin="20 5" ScrollViewer.CanContentScroll="True">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <StackPanel Margin="2 2" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Feature.Description}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Label Content="Select New Feature to Add" FontWeight="Bold"  Margin="20 5"/>
+                    <ListBox x:Name="systemTruckFeatureListBox" Height="130"  Margin="20 5" ScrollViewer.CanContentScroll="True" SelectionChanged="systemTruckFeatureListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <StackPanel Margin="2 2" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Description}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Label Content="Note: Only one truck feature can be added to truck at once" HorizontalAlignment="Center" Foreground="Red" Margin="5"/>
+                    <Button Name="addFeatureToTruckButton" Content="Add Feature to Truck" FontFamily="Century Gothic"
+             Foreground="white" Background="CornflowerBlue" Height="40" BorderThickness="0" Margin="20 10" Width="200" FontSize="14" Click="addfeatureToTruck_Click">
+                    </Button>
+                </StackPanel>
             </StackPanel>
-            <Label Content="Existing Truck Features: " Margin="10 3"/>
-            <ListBox x:Name="existingTruckFeatureListBox" Height="130"  Margin="10 10" ScrollViewer.CanContentScroll="True">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="0,2">
-                            <StackPanel Margin="2 2" Orientation="Horizontal">
-                                <TextBlock Text="{Binding Feature.Description}"/>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
-            <Label Content="Select Features: " Margin="10 90"/>
-            <DataGrid x:Name="featureDataGrid" Margin="10 30" Width="270" HorizontalAlignment="Center" DataContext="{Binding Source=TruckFeatures}" ScrollViewer.CanContentScroll="True" CanUserAddRows="False" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Availble Features" Binding="{Binding Path=Description}" IsReadOnly="True"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Name="addFeatureToTruck" Content="Add Feature to Truck" FontFamily="Century Gothic"
-             Foreground="white" Background="CornflowerBlue" Height="40" BorderThickness="0" Margin="10" Width="200" FontSize="14" Click="addfeatureToTruck_Click">
-            </Button>
         </StackPanel>
     </Grid>
 </Window>

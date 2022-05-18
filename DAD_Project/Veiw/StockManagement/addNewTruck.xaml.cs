@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,10 +29,9 @@ namespace TruckRental_Project.Veiw.StockManagement
             using (DAD_HarpreetContext ctx = new())
             {
                 truckModelListBox.ItemsSource = ctx.TruckModels.ToList();
-                truckFeatureListBox.ItemsSource = ctx.TruckFeatures.ToList();
             }
         }
-
+     
         private void AvailableTruckMenu(object sender, RoutedEventArgs e)
         {
             AvailableTrucksForRentForm availableTrucksForRentForm = new AvailableTrucksForRentForm();
@@ -57,6 +57,11 @@ namespace TruckRental_Project.Veiw.StockManagement
             updateTrucksForm.ShowDialog();
         }
 
+        private void AddFeaturesToTruckMenu(object sender, RoutedEventArgs e)
+        {
+            AddfeaturesToTruck form = new();
+            form.ShowDialog();
+        }
         private void addNewTruckButton_Click(object sender, RoutedEventArgs e)
         {
             
@@ -68,7 +73,7 @@ namespace TruckRental_Project.Veiw.StockManagement
             DatePicker[] checkAllDatePickers = {WOFDatePicker,
                 RegistrationExpiryDatePicker, ImportDatePicker};
             if(inputValidation.IsTextBoxEmpty(checkAllTextBoxes) || inputValidation.IsDatePickerEmpty(checkAllDatePickers)
-               || truckModelListBox.SelectedItem == null || truckFeatureListBox.SelectedIndex == -1)
+               || truckModelListBox.SelectedItem == null)
             {
                 MessageBox.Show("Please make sure that all the required information is provided\n" +
                     "Note: Input boxes and Dates cant be left empty.");
@@ -106,12 +111,6 @@ namespace TruckRental_Project.Veiw.StockManagement
 
 
             }
-        }
-
-        private void AddFeaturesToTruckMenu(object sender, RoutedEventArgs e)
-        {
-            AddfeaturesToTruck form = new();
-            form.ShowDialog();
         }
     }
 }

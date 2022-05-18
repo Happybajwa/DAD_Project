@@ -24,8 +24,8 @@
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="CornflowerBlue">
             <Menu IsMainMenu="True">
                 <MenuItem  Header="Add New Features" FontSize="14" Cursor="Hand" BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addNewFeatureMenu"></MenuItem>
-                <MenuItem  Header="Add Truck Model" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addTruckModelMenu"></MenuItem>
                 <MenuItem  Header="Add Features to Truck" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="AddFeaturesToTruckMenu"></MenuItem>
+                <MenuItem  Header="Add Truck Model" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addTruckModelMenu"></MenuItem>
                 <MenuItem  Header="Available Trucks" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="AvailableTruckMenu"></MenuItem>
                 <MenuItem  Header="Update Truck Info" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="UpdateTruckMenu"></MenuItem>
             </Menu>
@@ -42,8 +42,7 @@
             <Label Content="Transmission" Padding="10" Margin="20 0 0 0"/>
             <Label Content="Dailt Rent" Padding="10" Margin="20 0 0 0"/>
             <Label Content="Advanced Deposite Required" Padding="10" Margin="20 0 0 0" />
-            <Label Content="Select Truck Model" Padding="10" Margin="20 30 20 15" />
-            <Label Content="Select Truck Featurs" Padding="10" Margin="20 68 20 45" />
+            <Label Content="Select Truck Model" Padding="10" Margin="20 50 20 15" />
         </StackPanel>
         <StackPanel x:Name="addNewTruckPanel" Background="White" Grid.Row="2" Grid.ColumnSpan="3" Margin="207,0,0,2" >
             <TextBox x:Name="registraionTextBox" Margin="10 5 35 5" Height="25" BorderThickness="1" BorderBrush="CornflowerBlue"/>
@@ -67,7 +66,7 @@
             </ComboBox>
             <TextBox x:Name="DailyRentTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
             <TextBox x:Name="advanceDepositeTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
-            <ListBox x:Name="truckModelListBox" Height="110" Margin="10 5 35 5" ScrollViewer.CanContentScroll="True" BorderBrush="CornflowerBlue" SelectionMode="Single">
+            <ListBox x:Name="truckModelListBox" Height="150" Margin="10 5 35 5" ScrollViewer.CanContentScroll="True" BorderBrush="CornflowerBlue" SelectionMode="Single">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,2">
@@ -91,20 +90,9 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox x:Name="truckFeatureListBox" SelectionMode="Multiple" Height="110" Margin="10 5 35 5" ScrollViewer.CanContentScroll="True" BorderBrush="CornflowerBlue">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="0,2">
-                            <StackPanel Margin="2 2" Orientation="Horizontal">
-                                <TextBlock Text="{Binding Description}"/>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
             <Button Name="addNewTruckButton" Content="Add New Truck" FontFamily="Century Gothic"
              Foreground="white" Background="CornflowerBlue" BorderThickness="0"
-             Padding="0 15" Margin="0 0" Width="200" FontSize="14" Click="addNewTruckButton_Click">
+             Padding="0 15" Margin="0 30" Width="200" FontSize="14" Click="addNewTruckButton_Click">
             </Button>
 
         </StackPanel>

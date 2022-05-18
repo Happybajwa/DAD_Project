@@ -10,8 +10,35 @@
                     <Setter Property="CornerRadius" Value="5" />
                     <Setter Property="Background" Value="CornflowerBlue"/>
                     <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
                 </Style>
             </Style.Resources>
+        </Style>
+        <Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
+            <Setter Property="ColumnHeaderStyle" Value="{DynamicResource ColumnHeaderStyle1}"/>
+            <Setter Property="CellStyle" Value="{DynamicResource CellStyle1}"/>
+            <Setter Property="RowHeaderWidth" Value="0" />
+        </Style>
+        <!-- DataGridColumnHeader style -->
+        <Style x:Key="ColumnHeaderStyle1" TargetType="DataGridColumnHeader">
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="Background" Value="CornflowerBlue"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="3,2,2,2"/>
+            
+        </Style>
+        <Style x:Key="CellStyle1" TargetType="DataGridCell">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.1"/>
+            <Style.Triggers>
+                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                    <Setter Property="Background" Value="CornflowerBlue" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Application.Resources>
 </Application>
