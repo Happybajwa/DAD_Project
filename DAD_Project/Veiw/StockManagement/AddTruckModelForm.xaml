@@ -20,21 +20,22 @@
             <Label Content="Size" Margin="10 10"/>
             <Label Content="Seats" Margin="10 10"/>
             <Label Content="Doors" Margin="10 10"/>
-            <Label Content="Existing Truck Models" Margin="10 130 10 50"/>
+            <Label Content="Existing Truck Models" Margin="10 150 10 50"/>
         </StackPanel>
         <StackPanel x:Name="inputStackPanel" Background="White" Margin="20 20" Grid.Column="1" ScrollViewer.CanContentScroll="True">
-            <TextBox x:Name="modelNameTextBox" Margin="10 10" Height="25"/>
-            <TextBox x:Name="manufacturerTextBox"  Margin="10 10" Height="25"/>
+            <TextBox x:Name="modelNameTextBox" Margin="10 10" Height="25" PreviewTextInput="PreviewTextInput"/>
+            <TextBox x:Name="manufacturerTextBox"  Margin="10 10" Height="25" PreviewTextInput="PreviewTextInput"/>
             <ComboBox x:Name="sizeComboBox" Margin="10 10" Height="25">
                 <ComboBoxItem IsSelected="True">Standard</ComboBoxItem>
                 <ComboBoxItem>Medium</ComboBoxItem>
                 <ComboBoxItem>Large</ComboBoxItem>
             </ComboBox>
-            <TextBox x:Name="seatsTextBox" Margin="10 10" Height="25"/>
-            <TextBox x:Name="doorstextBox" Margin="10 10" Height="25"/>
+            <TextBox x:Name="seatsTextBox" Margin="10 10" Height="25" PreviewTextInput="PreviewTextInput2"/>
+            <TextBox x:Name="doorstextBox" Margin="10 10" Height="25" PreviewTextInput="PreviewTextInput2"/>
+            <Label x:Name="warningLabel" Content="" Foreground="Red" Margin="10 -10"/>
             <Button x:Name="AddModelButton" Content="Add Truck Model" Height="30"
                      Background="CornflowerBlue" Foreground="White" Margin="10 10" Click="AddModelButton_Click"/>
-            <ListBox x:Name="truckModelsListBox" Height="170" Margin="10 25 10 5" ScrollViewer.CanContentScroll="True" BorderBrush="CornflowerBlue" SelectionMode="Single">
+            <ListBox x:Name="truckModelsListBox" Height="170" Margin="10 10 10 5" ScrollViewer.CanContentScroll="True" BorderBrush="CornflowerBlue" SelectionMode="Single">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,2">

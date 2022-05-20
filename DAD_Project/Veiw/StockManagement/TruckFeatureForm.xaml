@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TruckRental_Project.Veiw.StockManagement"
         mc:Ignorable="d" ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner"
-        Title="Truck Feature Form" WindowStyle="ToolWindow"
+        Title="Add Features to Sytsem Form" WindowStyle="ToolWindow"
         MaxHeight="400" MaxWidth="500" MinHeight="500" MinWidth="400">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,7 +17,8 @@
         </Grid.ColumnDefinitions>
         <StackPanel Background="White" Margin="20 20">
             <Label Content="Enter Feature Name" Margin="10 10"/>
-            <TextBox x:Name="featureTextBox" Height="25" Margin="10 10"/>
+            <TextBox x:Name="featureTextBox" Height="25" Margin="10 10" PreviewTextInput="PreviewTextInput"/>
+            <Label x:Name="warningLabel" Foreground="Red" Content="" Margin="10 -10"/>
              <Button x:Name="AddFeatureButton" Content="Add Feature" Height="30"
                      Background="CornflowerBlue" Foreground="White" Margin="10 10" Click="AddFeatureButton_Click"/>
             <Label Content="All Existing Features" Margin="10 10"/>

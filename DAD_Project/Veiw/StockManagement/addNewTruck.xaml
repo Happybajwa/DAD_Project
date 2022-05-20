@@ -23,9 +23,9 @@
         </Border>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="CornflowerBlue">
             <Menu IsMainMenu="True">
-                <MenuItem  Header="Add New Features" FontSize="14" Cursor="Hand" BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addNewFeatureMenu"></MenuItem>
+                <MenuItem  Header="Add New Features to System" FontSize="14" Cursor="Hand" BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addNewFeatureMenu"></MenuItem>
                 <MenuItem  Header="Add Features to Truck" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="AddFeaturesToTruckMenu"></MenuItem>
-                <MenuItem  Header="Add Truck Model" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addTruckModelMenu"></MenuItem>
+                <MenuItem  Header="Add New Truck Model" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="addTruckModelMenu"></MenuItem>
                 <MenuItem  Header="Available Trucks" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="AvailableTruckMenu"></MenuItem>
                 <MenuItem  Header="Update Truck Info" FontSize="14" Cursor="Hand"  BorderBrush="White"  BorderThickness="1" Background="CornflowerBlue" Foreground="White" Height="30" Click="UpdateTruckMenu"></MenuItem>
             </Menu>

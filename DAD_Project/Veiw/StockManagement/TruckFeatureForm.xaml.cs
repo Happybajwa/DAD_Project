@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,9 +26,24 @@ namespace TruckRental_Project.Veiw.StockManagement
         {
             InitializeComponent();
             featureDataGrid.ItemsSource = ctx.TruckFeatures.ToList();
+            warningLabel.Visibility = Visibility.Hidden;
 
         }
-
+        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-zA-Z]+");
+            e.Handled = regex.IsMatch(e.Text);
+            if (e.Handled == true)
+            {
+                warningLabel.Visibility = Visibility.Visible;
+                warningLabel.Content = "Only Alphabets are allowed";      
+            }
+            else
+            {
+                warningLabel.Content = "";
+                warningLabel.Visibility = Visibility.Hidden;
+            }
+        }
         private void AddFeatureButton_Click(object sender, RoutedEventArgs e)
         {
             if(string.IsNullOrEmpty(featureTextBox.Text))
@@ -36,7 +52,7 @@ namespace TruckRental_Project.Veiw.StockManagement
             }
             else
             {
-                if(DAO.IsTruckFeatureExists(featureTextBox.Text) == true)
+                if(DAO.IsTruckFeatureExistsInSystem(featureTextBox.Text) == true)
                 {
                     MessageBox.Show("Feature already exists in the system.");
                 }

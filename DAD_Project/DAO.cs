@@ -164,7 +164,7 @@ namespace TruckRental_Project
                 }
             }
         }
-        public static bool IsTruckFeatureExists(string feature)
+        public static bool IsTruckFeatureExistsInSystem(string feature)
         {
             //We are checking if the feature we are trying to add in system -
             //already exists in the system
@@ -201,7 +201,7 @@ namespace TruckRental_Project
         }
 
         //searching truck and feature association using truck id
-        //it wil return us all features linked to the given truck id
+        //it will return us all features linked to the given truck id
         public static List<TruckFeatureAssociation> searchTruckFeatureAssociationByTruckID(int id)
         {
             using(DAD_HarpreetContext ctx = new())
@@ -210,11 +210,22 @@ namespace TruckRental_Project
             }
         }
 
+        //This method will remove truck's existing feature
         public static void RemoveTruckFeature(TruckFeatureAssociation feature)
         {
             using (DAD_HarpreetContext ctx = new())
             {
                 ctx.TruckFeatureAssociations.Remove(feature);
+                ctx.SaveChanges();
+            }
+        }
+
+        //Updating truck  Information
+        public static void updateSelectedTruck(IndividualTruck truck)
+        {
+            using (DAD_HarpreetContext ctx = new())
+            {
+                ctx.Entry(truck).State = EntityState.Modified;
                 ctx.SaveChanges();
             }
         }

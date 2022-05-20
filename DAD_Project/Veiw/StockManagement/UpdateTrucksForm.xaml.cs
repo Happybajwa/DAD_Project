@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,10 +28,44 @@ namespace TruckRental_Project.Veiw.StockManagement
             this.updateButton.IsEnabled = false;
             this.removeFeatureButton.IsEnabled = false;         
         }
-
+        //previewing the text input in text box
+        //making sure that we don't allow user to enter special characters
+        //displaying error message in a hidden label
+        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-zA-Z0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+            if (e.Handled == true)
+            {
+                warningLabel.Visibility = Visibility.Visible;
+                warningLabel.Content = "No Special Characters Allowed";
+            }
+            else
+            {
+                warningLabel.Content = "";
+                warningLabel.Visibility = Visibility.Hidden;
+            }
+        }
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var truck = truckListDataGrid.SelectedItem as IndividualTruck;
+                if(truck == null)
+                {
+                    MessageBox.Show("Please Select a row to update truck information.");
+                }
+                else
+                {
+                    DAO.updateSelectedTruck(truck);
+                    MessageBox.Show("Truck Info has been updated successfully.");
+                }    
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("oops something went wrong"+ex.Message);
+            }
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
@@ -69,6 +104,7 @@ namespace TruckRental_Project.Veiw.StockManagement
                 {
                     ErrorLable.Content = "This Truck Does'nt have any features";
                     truckFeatureDataGrid.ItemsSource = features;
+                    this.removeFeatureButton.IsEnabled = false;
                 }
                 else
                 {

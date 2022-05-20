@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DAD_Project.DB;
+using System.Text.RegularExpressions;
 
 namespace TruckRental_Project.Veiw.StockManagement
 {
@@ -27,6 +28,43 @@ namespace TruckRental_Project.Veiw.StockManagement
             using (DAD_HarpreetContext ctx = new())
             {
                 truckModelsListBox.ItemsSource = ctx.TruckModels.ToList();
+            }
+        }
+        //previewing the text input in text box
+        //making sure that we don't allow user to enter special characters
+        //displaying error message in a hidden label
+        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-zA-Z0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+            if (e.Handled == true)
+            {
+                warningLabel.Visibility = Visibility.Visible;
+                warningLabel.Content = "No Special Characters Are Allowed";
+            }
+            else
+            {
+                warningLabel.Content = "";
+                warningLabel.Visibility = Visibility.Hidden;
+            }
+        }
+        //previewing the text input in text box
+        //making sure that we don't allow user to enter special characters or alphabets
+        //displaying error message in a hidden label
+        //this will make sure only to allow integers in text box
+        private void PreviewTextInput2(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+            if (e.Handled == true)
+            {
+                warningLabel.Visibility = Visibility.Visible;
+                warningLabel.Content = "Only Numbers Are Allowed";
+            }
+            else
+            {
+                warningLabel.Content = "";
+                warningLabel.Visibility = Visibility.Hidden;
             }
         }
 

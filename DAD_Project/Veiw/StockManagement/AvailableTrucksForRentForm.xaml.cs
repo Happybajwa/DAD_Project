@@ -20,6 +20,7 @@ namespace TruckRental_Project.Veiw.StockManagement
     /// </summary>
     public partial class AvailableTrucksForRentForm : Window
     {
+        IndividualTruck truck;
         public AvailableTrucksForRentForm()
         {
             InitializeComponent();
@@ -34,9 +35,32 @@ namespace TruckRental_Project.Veiw.StockManagement
             }
             else
             {
-                MessageBox.Show("no trucks in the sytsem yet");
+                MessageBox.Show("no trucks in the system yet");
             }
 
+        }
+
+        private void truckDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (truckDataGrid.SelectedItem == null)
+            {
+                
+            }
+            else
+            {
+                truck = truckDataGrid.SelectedItem as IndividualTruck;
+                var features = DAO.searchTruckFeatureAssociationByTruckID(truck.TruckId);
+                if (features.Count == 0)
+                {
+                    ErrorLabel.Content = "This Truck Does'nt have any features";
+                    truckFeatureDataGrid.ItemsSource = features;
+                }
+                else
+                {
+                    ErrorLabel.Content = "";
+                    truckFeatureDataGrid.ItemsSource = features;
+                }
+            }
         }
     }
 }

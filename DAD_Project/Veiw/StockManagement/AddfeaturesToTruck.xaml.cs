@@ -32,13 +32,14 @@ namespace DAD_Project.Veiw.StockManagement
             systemTruckFeatureListBox.ItemsSource = DAO.getAllTruckFeatures();
             afterSearchPanel.Visibility = Visibility.Hidden;
             this.addFeatureToTruckButton.IsEnabled = false;
+            warningLabel.Visibility = Visibility.Hidden;
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
             if(string.IsNullOrEmpty(searchTruckTextBox.Text))
             {
-                MessageBox.Show("Please Enter truck rego number to search");
+                MessageBox.Show("Please Enter truck registration number to search");
             }
             else
             {
@@ -51,7 +52,7 @@ namespace DAD_Project.Veiw.StockManagement
                     afterSearchPanel.Visibility = Visibility.Visible;
                     if (truckExistingFeatures.Count == 0)
                     {
-                        TruckFeatureLable.Content = "This Truck Doesnt have any features";
+                        TruckFeatureLable.Content = "This Truck Doesn't have any features";
                     }
                     else
                     {
@@ -86,35 +87,23 @@ namespace DAD_Project.Veiw.StockManagement
         {
             this.addFeatureToTruckButton.IsEnabled = true;
         }
+
+        //previewing the text input in text box
+        //making sure that we don't allow user to enter special characters
+        //displaying error message in a hidden label
         private void PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^a-zA-Z0-9]+");
             e.Handled = regex.IsMatch(e.Text);
             if (e.Handled == true)
             {
-                var textbox = sender as TextBox;
-                textbox.BorderBrush = new SolidColorBrush(Colors.Red);
+                warningLabel.Visibility = Visibility.Visible;
+                warningLabel.Content = "No Special Characters Allowed";
             }
             else
             {
-                var textbox = sender as TextBox;
-                textbox.BorderBrush = new SolidColorBrush(Colors.Green);
-            }
-        }
-
-        private void searchTruckTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            Regex regex = new Regex("[^a-zA-Z0-9]+");
-            e.Handled = regex.IsMatch(e.Key.ToString());
-            if (e.Handled == true)
-            {
-                var textbox = sender as TextBox;
-                textbox.BorderBrush = new SolidColorBrush(Colors.Red);
-            }
-            else
-            {
-                var textbox = sender as TextBox;
-                textbox.BorderBrush = new SolidColorBrush(Colors.Green);
+                warningLabel.Content = "";
+                warningLabel.Visibility = Visibility.Hidden;
             }
         }
     }

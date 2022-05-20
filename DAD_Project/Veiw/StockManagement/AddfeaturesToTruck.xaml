@@ -18,6 +18,7 @@
         <StackPanel>
             <Label Content="Enter Truck Registration Number" Margin="20 10"/>
             <TextBox x:Name="searchTruckTextBox" Height="25" Margin="20 10" PreviewTextInput="PreviewTextInput"/>
+            <Label x:Name="warningLabel" Foreground="Red" Content="" Margin="20 0"/>
             <Button Name="searchTruckButton" Content="Search Truck" FontFamily="Century Gothic"
              Foreground="white" Background="CornflowerBlue" Height="40" BorderThickness="0" 
              Margin="20 10" FontSize="14" Click="searchButton_Click">
