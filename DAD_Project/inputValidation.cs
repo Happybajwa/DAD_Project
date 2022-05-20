@@ -50,7 +50,7 @@ namespace TruckRental_Project
         }
 
 
-        //Using Method to clear all the textboxes once opertaion has been successfull
+        //Using Method to clear all the textboxes once operation has been successfull
         public static void ClearAllTextBoxes(StackPanel stack)
         {
             foreach (Control ctr in stack.Children)
@@ -60,14 +60,12 @@ namespace TruckRental_Project
                     TextBox t = (TextBox)ctr;
                     {
                         t.Text = "";
-
                     }
-
                 }
             }
         }
 
-        //Using Method to clear all the date pickers once opertaion has been successfull
+        //Using Method to clear all the date pickers once operation has been successfull
         public static void clearDatePickers(StackPanel stack)
         {
             foreach (Control ctr in stack.Children)
@@ -83,7 +81,5 @@ namespace TruckRental_Project
                 }
             }
         }
-
-
     }
 }

@@ -26,17 +26,16 @@
             </Button>
         </StackPanel>
         <Label Content="" x:Name="ErrorLabel" Foreground="Red" HorizontalAlignment="Center" Grid.Row="2"/>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto">
-        <StackPanel Background="White" Margin="40 40" Grid.Row="1" Orientation="Horizontal">
-            
-            <DataGrid x:Name="truckDataGrid" IsReadOnly="True" Margin="10 10 10 10" HorizontalAlignment="Center" Style="{DynamicResource DataGridStyle1}"
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+            <StackPanel Background="White" Margin="40 40" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <DataGrid x:Name="truckDataGrid" IsReadOnly="True" Margin="10 10 10 10" HorizontalAlignment="Center" Style="{DynamicResource DataGridStyle1}"
                       DataContext="{Binding Source=trucks}" CanUserAddRows="False" AutoGenerateColumns="False" Height="300" SelectionChanged="truckDataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Registration No" Binding="{Binding Path=RegistrationNumber}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Model" Binding="{Binding Path=TruckModel.Model}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Fuel type" Binding="{Binding Path=FuelType}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Transmission" Binding="{Binding Path=Colour}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Color" Binding="{Binding Path=Colour}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=DailyRentalPrice}"></DataGridTextColumn>
                     <DataGridTextColumn Header="WOF Expiry" Binding="{Binding Path=WofexpiryDate, StringFormat=\{0:dd.MM.yy\}}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Registration Expiry" Binding="{Binding Path=RegistrationExpiryDate, StringFormat=\{0:dd.MM.yy\}}"></DataGridTextColumn>
@@ -46,7 +45,7 @@
                           DataContext="{Binding Source=trucks}" CanUserResizeColumns="False" CanUserReorderColumns="False"
                           AutoGenerateColumns="False" Margin="10 10 10 10" Height="300">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Features" Binding="{Binding Path=Feature.Description}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Truck Features" Binding="{Binding Path=Feature.Description}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

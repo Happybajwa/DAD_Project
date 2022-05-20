@@ -37,14 +37,15 @@ namespace TruckRental_Project.Veiw.StockManagement
             {
                 MessageBox.Show("no trucks in the system yet");
             }
-
         }
 
         private void truckDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (truckDataGrid.SelectedItem == null)
             {
-                
+                //this has left to do nothing 
+                //because we don't want to display any error -
+                //if user doesn't select a row as its ready only form
             }
             else
             {

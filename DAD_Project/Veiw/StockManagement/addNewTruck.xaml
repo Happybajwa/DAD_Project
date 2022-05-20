@@ -45,12 +45,12 @@
             <Label Content="Select Truck Model" Padding="10" Margin="20 50 20 15" />
         </StackPanel>
         <StackPanel x:Name="addNewTruckPanel" Background="White" Grid.Row="2" Grid.ColumnSpan="3" Margin="207,0,0,2" >
-            <TextBox x:Name="registraionTextBox" Margin="10 5 35 5" Height="25" BorderThickness="1" BorderBrush="CornflowerBlue"/>
-            <TextBox x:Name="colourTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <TextBox x:Name="registraionTextBox" Margin="10 5 35 5" Height="25" BorderThickness="1" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInput"/>
+            <TextBox x:Name="colourTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputAlphabetsOnly"/>
             <DatePicker Name="WOFDatePicker" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
             <DatePicker Name="RegistrationExpiryDatePicker" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
             <DatePicker Name="ImportDatePicker" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
-            <TextBox x:Name="ManufacturingTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <TextBox x:Name="ManufacturingTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputIntegerOnly"/>
             <ComboBox Name="statusComboBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue">
                 <ComboBoxItem IsSelected="True">Available for rent</ComboBoxItem>
                 <ComboBoxItem>Rented</ComboBoxItem>
@@ -64,8 +64,8 @@
                 <ComboBoxItem  IsSelected="True">Manual</ComboBoxItem>
                 <ComboBoxItem>Automatic</ComboBoxItem>
             </ComboBox>
-            <TextBox x:Name="DailyRentTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
-            <TextBox x:Name="advanceDepositeTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <TextBox x:Name="DailyRentTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputIntegerOnly"/>
+            <TextBox x:Name="advanceDepositeTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputIntegerOnly"/>
             <ListBox x:Name="truckModelListBox" Height="150" Margin="10 5 35 5" ScrollViewer.CanContentScroll="True" BorderBrush="CornflowerBlue" SelectionMode="Single">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -90,6 +90,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <Label x:Name="warningLabel" Foreground="Red" FontSize="16" Padding="10" Margin="10 5 35 5"/>
             <Button Name="addNewTruckButton" Content="Add New Truck" FontFamily="Century Gothic"
              Foreground="white" Background="CornflowerBlue" BorderThickness="0"
              Padding="0 15" Margin="0 30" Width="200" FontSize="14" Click="addNewTruckButton_Click">

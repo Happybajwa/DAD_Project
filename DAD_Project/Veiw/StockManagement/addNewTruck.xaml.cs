@@ -62,6 +62,63 @@ namespace TruckRental_Project.Veiw.StockManagement
             AddfeaturesToTruck form = new();
             form.ShowDialog();
         }
+        //previewing the text input in text box
+        //making sure that we don't allow user to enter special characters
+        //displaying error message in a hidden label
+        //this will make sure only to allow integers and alphabets in text box
+        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-zA-Z0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+            if (e.Handled == true)
+            {
+                warningLabel.Visibility = Visibility.Visible;
+                warningLabel.Content = "No Special Characters Are Allowed";
+            }
+            else
+            {
+                warningLabel.Content = "";
+                warningLabel.Visibility = Visibility.Hidden;
+            }
+        }
+        //previewing the text input in text box
+        //making sure that we don't allow user to enter special characters or alphabets
+        //displaying error message in a hidden label
+        //this will make sure only to allow integers in text box
+        private void PreviewTextInputIntegerOnly(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9.]+");
+            e.Handled = regex.IsMatch(e.Text);
+            if (e.Handled == true)
+            {
+                warningLabel.Visibility = Visibility.Visible;
+                warningLabel.Content = "Only Numbers Are Allowed";
+            }
+            else
+            {
+                warningLabel.Content = "";
+                warningLabel.Visibility = Visibility.Hidden;
+            }
+        }
+        //previewing the text input in text box
+        //making sure that we don't allow user to enter special characters or integers
+        //displaying error message in a hidden label
+        //this will make sure only to allow alphabets in text box
+        private void PreviewTextInputAlphabetsOnly(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-zA-Z]+");
+            e.Handled = regex.IsMatch(e.Text);
+            if (e.Handled == true)
+            {
+                warningLabel.Visibility = Visibility.Visible;
+                warningLabel.Content = "Only Alphabets Are Allowed";
+            }
+            else
+            {
+                warningLabel.Content = "";
+                warningLabel.Visibility = Visibility.Hidden;
+            }
+        }
         private void addNewTruckButton_Click(object sender, RoutedEventArgs e)
         {
             
@@ -69,9 +126,10 @@ namespace TruckRental_Project.Veiw.StockManagement
             TextBox[] checkAllTextBoxes = {registraionTextBox, colourTextBox, ManufacturingTextBox,
                 DailyRentTextBox, advanceDepositeTextBox};
 
-            //Creating a datePicker array to check none of the datepicker i s empty
+            //Creating a datePicker array to check none of the datepicker is empty
             DatePicker[] checkAllDatePickers = {WOFDatePicker,
                 RegistrationExpiryDatePicker, ImportDatePicker};
+
             if(inputValidation.IsTextBoxEmpty(checkAllTextBoxes) || inputValidation.IsDatePickerEmpty(checkAllDatePickers)
                || truckModelListBox.SelectedItem == null)
             {
@@ -101,15 +159,12 @@ namespace TruckRental_Project.Veiw.StockManagement
                     MessageBox.Show("Truck has been added to system successfully");
                     var truck = DAO.getTruckByRegistrationNumber(NewTruck.RegistrationNumber);
 
-                    //inputValidation.ClearAllTextBoxes(addNewTruckPanel);
+                    inputValidation.ClearAllTextBoxes(addNewTruckPanel);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                }
-               
-
-
+                }              
             }
         }
     }
