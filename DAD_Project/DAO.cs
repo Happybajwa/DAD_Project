@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DAD_Project.DB;
 using System.Windows.Controls;
 using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace TruckRental_Project
 {
@@ -14,9 +15,9 @@ namespace TruckRental_Project
     {
         public static bool CheckTruckRegoExists(string registration)
         {
-            //Checking if a truck is already in system with the same registration number
-            //if truck exists function will return true and truck wont be added to the system
-            //User will be notified
+            //CHECKING IF A TRUCK IS ALREADY IN SYSTEM WITH THE SAME REGISTRATION NUMBER
+            //IF TRUCK EXISTS FUNCTION WILL RETURN TRUE AND TRUCK WONT BE ADDED TO THE SYSTEM
+            //USER WILL BE NOTIFIED
             using (DAD_HarpreetContext ctx = new())
             {
                 var regoExists = ctx.IndividualTrucks.Where(t => t.RegistrationNumber == registration).FirstOrDefault();
@@ -32,10 +33,10 @@ namespace TruckRental_Project
         }
         public static void AddNewTruck(IndividualTruck truck)
         {
-            //Adding Individual truck in database
+            //ADDING INDIVIDUAL TRUCK IN DATABASE
             using (DAD_HarpreetContext ctx = new())
             {
-                //Chexking if truck alredy exists in the system
+                //CHECKING IF TRUCK ALREDY EXISTS IN THE SYSTEM
                 if(CheckTruckRegoExists(truck.RegistrationNumber) == false)
                 {
                     ctx.IndividualTrucks.Add(truck);
@@ -43,16 +44,16 @@ namespace TruckRental_Project
                 }
                 else
                 {
-                    //throwing an exception if truck registration already exists in system
+                    //THROWING AN EXCEPTION IF TRUCK REGISTRATION ALREADY EXISTS IN SYSTEM
                     throw new Exception("Truck with Same Registration Number Already Exists in the System");
                 }
                 
             }
         }
         
-        /* Adding a new truck model in the database. before adding we are checking that truck model
-           doesnt exists in the system already. if it does we will simply show user an error that this
-           truck model already exists in the system.      
+        /* ADDING A NEW TRUCK MODEL IN THE DATABASE. BEFORE ADDING WE ARE CHECKING THAT TRUCK MODEL
+           DOESNT EXISTS IN THE SYSTEM ALREADY. IF IT DOES WE WILL SIMPLY SHOW USER AN ERROR THAT THIS
+           TRUCK MODEL ALREADY EXISTS IN THE SYSTEM.      
          */
         public static void AddNewTruckModel(TruckModel model)
         {
@@ -70,8 +71,8 @@ namespace TruckRental_Project
             }
         }
 
-        /* Checking that if a truck model already in the system. we can not have two truck model
-            with same name in the system.
+        /* CHECKING THAT IF A TRUCK MODEL ALREADY IN THE SYSTEM. WE CAN NOT HAVE TWO TRUCK MODEL
+            WITH SAME NAME IN THE SYSTEM.
          */
         public static bool IsTruckModelExists(string name)
         {
@@ -90,7 +91,7 @@ namespace TruckRental_Project
             }
         }
 
-        //Searching the truck model number with model name
+        //SEARCHING THE TRUCK MODEL NUMBER WITH MODEL NAME
         public static TruckModel searchTruckModelName(string name)
         {
             using (DAD_HarpreetContext ctx = new())
@@ -118,8 +119,8 @@ namespace TruckRental_Project
         }  
 
 
-        //adding a feature to truck before adding we are checking that
-        //truck and feature are not null in parameters
+        //ADDING A FEATURE TO TRUCK BEFORE ADDING WE ARE CHECKING THAT
+        //TRUCK AND FEATURE ARE NOT NULL IN PARAMETERS
         public static void AddFeatureToTruck(IndividualTruck truck, TruckFeature feature)
         {
             if (truck != null || feature != null)
@@ -138,8 +139,8 @@ namespace TruckRental_Project
         }
 
 
-        //performing search to know if truck already have some features or not
-        //for that we are using truck id as we know truck feature association only have truck id and feature id
+        //PERFORMING SEARCH TO KNOW IF TRUCK ALREADY HAVE SOME FEATURES OR NOT
+        //FOR THAT WE ARE USING TRUCK ID AS WE KNOW TRUCK FEATURE ASSOCIATION ONLY HAVE TRUCK ID AND FEATURE ID
         public static List<TruckFeatureAssociation> DoesTruckHasFeatureExistedAlready(int truckId)
         {
             using (DAD_HarpreetContext ctx = new())
@@ -148,7 +149,7 @@ namespace TruckRental_Project
             }
         }
 
-        //Here we are checking that is user assigning the same feature to truck that truck already has
+        //HERE WE ARE CHECKING THAT IS USER ASSIGNING THE SAME FEATURE TO TRUCK THAT TRUCK ALREADY HAS
         public static bool DoesTruckHasThisFeatureAlready(int truckId, int featureId)
         {
             using (DAD_HarpreetContext ctx = new())
@@ -166,8 +167,8 @@ namespace TruckRental_Project
         }
         public static bool IsTruckFeatureExistsInSystem(string feature)
         {
-            //We are checking if the feature we are trying to add in system -
-            //already exists in the system
+            //WE ARE CHECKING IF THE FEATURE WE ARE TRYING TO ADD IN SYSTEM -
+            //ALREADY EXISTS IN THE SYSTEM
             using (DAD_HarpreetContext ctx = new())
             {
                 var ExistingFeature = ctx.TruckFeatures.Where(f => f.Description.ToLower().Equals(feature.ToLower())).FirstOrDefault();
@@ -182,7 +183,7 @@ namespace TruckRental_Project
             }
         }
 
-        //here we are searching that existing truck using its registration number
+        //HERE WE ARE SEARCHING THAT EXISTING TRUCK USING ITS REGISTRATION NUMBER
         public static IndividualTruck getTruckByRegistrationNumber(string rego)
         {
             using (DAD_HarpreetContext ctx = new())
@@ -191,7 +192,7 @@ namespace TruckRental_Project
             }
         }
 
-        //We are returing a list of all available truck features in the system
+        //WE ARE RETURING A LIST OF ALL AVAILABLE TRUCK FEATURES IN THE SYSTEM
         public static List<TruckFeature> getAllTruckFeatures()
         {
             using (DAD_HarpreetContext ctx = new())
@@ -200,8 +201,8 @@ namespace TruckRental_Project
             }
         }
 
-        //searching truck and feature association using truck id
-        //it will return us all features linked to the given truck id
+        //SEARCHING TRUCK AND FEATURE ASSOCIATION USING TRUCK ID
+        //IT WILL RETURN US ALL FEATURES LINKED TO THE GIVEN TRUCK ID
         public static List<TruckFeatureAssociation> searchTruckFeatureAssociationByTruckID(int id)
         {
             using(DAD_HarpreetContext ctx = new())
@@ -210,7 +211,7 @@ namespace TruckRental_Project
             }
         }
 
-        //This method will remove truck's existing feature
+        //THIS METHOD WILL REMOVE TRUCK'S EXISTING FEATURE
         public static void RemoveTruckFeature(TruckFeatureAssociation feature)
         {
             using (DAD_HarpreetContext ctx = new())
@@ -220,13 +221,50 @@ namespace TruckRental_Project
             }
         }
 
-        //Updating truck  Information
+        //UPDATING TRUCK  INFORMATION
         public static void updateSelectedTruck(IndividualTruck truck)
+        {
+            Regex isString = new Regex(@"^[a-zA-Z]+");
+
+            if (isString.IsMatch(truck.Colour))
+            {
+                using (DAD_HarpreetContext ctx = new())
+                {
+                    ctx.Entry(truck).State = EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+            }
+            else
+            {
+                throw new Exception("Please make sure all the values are in correct format");
+            } 
+        }
+
+        //GETTING TRUCK EMPLOYEE WITH USERNAME AND PASSWORD
+        //FOR LOGIN PAGE
+        public static string isLoginDetailsAreCorrect(string username, string password)
         {
             using (DAD_HarpreetContext ctx = new())
             {
-                ctx.Entry(truck).State = EntityState.Modified;
-                ctx.SaveChanges();
+                var employee = ctx.TruckEmployees.Where(emp => emp.Username == username && emp.Password == password).FirstOrDefault();
+                if (employee != null)
+                {
+                    return employee.Role;
+                }
+                else
+                {
+                    throw new Exception("Employee not found with given username and password");
+                }
+            }
+        }
+
+
+        //LIST OF ALL TO FOR DASHBOARD VIEW
+        public static List<IndividualTruck> getAllTruck()
+        {
+            using (DAD_HarpreetContext ctx = new())
+            {
+                return ctx.IndividualTrucks.ToList();
             }
         }
     }

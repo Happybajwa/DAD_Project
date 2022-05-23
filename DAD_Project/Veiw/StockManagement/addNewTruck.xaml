@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TruckRental_Project.Veiw.StockManagement"
              mc:Ignorable="d" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="750" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,7 +18,6 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-
         <Border Grid.Row="0" Background="CornflowerBlue" Grid.ColumnSpan="3" Margin="0,0,0.333,0">
             <TextBlock Text="Truck Stock Management" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="White"></TextBlock>
         </Border>
@@ -44,17 +44,15 @@
             <Label Content="Advanced Deposite Required" Padding="10" Margin="20 0 0 0" />
             <Label Content="Select Truck Model" Padding="10" Margin="20 50 20 15" />
         </StackPanel>
-        <StackPanel x:Name="addNewTruckPanel" Background="White" Grid.Row="2" Grid.ColumnSpan="3" Margin="207,0,0,2" >
+        <StackPanel x:Name="addNewTruckPanel" Background="White" Grid.Row="2" Grid.ColumnSpan="3" Margin="207,0,0,2">
             <TextBox x:Name="registraionTextBox" Margin="10 5 35 5" Height="25" BorderThickness="1" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInput"/>
             <TextBox x:Name="colourTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputAlphabetsOnly"/>
-            <DatePicker Name="WOFDatePicker" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
-            <DatePicker Name="RegistrationExpiryDatePicker" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
-            <DatePicker Name="ImportDatePicker" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
-            <TextBox x:Name="ManufacturingTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputIntegerOnly"/>
+            <DatePicker Name="WOFDatePicker" DisplayDateStart="{x:Static sys:DateTime.Today}" ToolTip="Past Dates Are Disabled, Should have current WOF" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <DatePicker Name="RegistrationExpiryDatePicker" ToolTip="Past Dates Are Disabled,Should have current registration" DisplayDateStart="{x:Static sys:DateTime.Today}" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <DatePicker Name="ImportDatePicker" Height="25" ToolTip="Import Date cannot be in future" DisplayDateEnd="{x:Static sys:DateTime.Now}" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <ComboBox x:Name="ManufacturingCombobox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
             <ComboBox Name="statusComboBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue">
                 <ComboBoxItem IsSelected="True">Available for rent</ComboBoxItem>
-                <ComboBoxItem>Rented</ComboBoxItem>
-                <ComboBoxItem>Under Repair</ComboBoxItem>
             </ComboBox>
             <ComboBox Name="FuelTypeComboBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue">
                 <ComboBoxItem  IsSelected="True">Diesel</ComboBoxItem>
@@ -90,7 +88,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Label x:Name="warningLabel" Foreground="Red" FontSize="16" Padding="10" Margin="10 5 35 5"/>
+            <Label x:Name="warningLabel" Foreground="Red" FontSize="16" FontWeight="Bold" Padding="10" Margin="10 5 35 5"/>
             <Button Name="addNewTruckButton" Content="Add New Truck" FontFamily="Century Gothic"
              Foreground="white" Background="CornflowerBlue" BorderThickness="0"
              Padding="0 15" Margin="0 30" Width="200" FontSize="14" Click="addNewTruckButton_Click">

@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:TruckRental_Project"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+       
         <Style TargetType="Button">
             <Style.Resources>
                 <Style TargetType="Border">

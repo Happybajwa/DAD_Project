@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TruckRental_Project.Veiw.StockManagement"
+         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow"
         MaxHeight="450" MaxWidth="1000" MinHeight="550" MinWidth="750"
@@ -30,7 +31,7 @@
              FontSize="14" Click="removeFeatureButton_Click">
             </Button>
         </StackPanel>
-        <StackPanel Background="White" Margin="20 20" Grid.Row="1" Orientation="Vertical">
+        <StackPanel Background="White" Margin="20 20" Grid.Row="1" Orientation="Vertical" x:Name="updatePanel">
             <Label Foreground="CornflowerBlue" Height="30" Content="Only Update-able information is displayed" FontSize="14" HorizontalAlignment="Center"/>
             <Label x:Name="ErrorLable" Foreground="Red" FontSize="16" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -41,11 +42,55 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn IsReadOnly="True" Header="Truck ID" Binding="{Binding Path=TruckId}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Registration Number" IsReadOnly="True" Binding="{Binding Path=RegistrationNumber}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="WOF Expiry" Binding="{Binding Path=WofexpiryDate, StringFormat=\{0:dd.MM.yy\}}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Rego Expiry" Binding="{Binding Path=RegistrationExpiryDate, StringFormat=\{0:dd.MM.yy\}}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="WOF Expiry">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=WofexpiryDate, StringFormat=\{0:dd.MM.yy\}}"></TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" ToolTip="Past Dates Are Disabled, Should have current WOF" SelectedDate="{Binding WOFexpiryDate}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Rego Expiry">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=RegistrationExpiryDate, StringFormat=\{0:dd.MM.yy\}}"></TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" ToolTip="Past Dates Are Disabled, Should have current WOF" SelectedDate="{Binding WOFexpiryDate}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Colour" Binding="{Binding Path=Colour}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=DailyRentalPrice, StringFormat={}{0:n2}}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=AdvanceDepositRequired, StringFormat={}{0:n2}}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Daily Rent">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=DailyRentalPrice, StringFormat={}{0:n2}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <TextBox PreviewTextInput="DataGridCell_PreviewTextInput" Text="{Binding Path=DailyRentalPrice, StringFormat={}{0:n2}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Advance Rent">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=AdvanceDepositRequired, StringFormat={}{0:n2}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <TextBox PreviewTextInput="DataGridCell_PreviewTextInput" Text="{Binding Path=AdvanceDepositRequired, StringFormat={}{0:n2}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
                 <DataGrid CanUserAddRows="False"  x:Name="truckFeatureDataGrid" IsReadOnly="True" HorizontalAlignment="Center" Style="{DynamicResource DataGridStyle1}"

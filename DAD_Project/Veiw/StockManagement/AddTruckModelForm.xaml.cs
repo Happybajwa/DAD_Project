@@ -48,30 +48,10 @@ namespace TruckRental_Project.Veiw.StockManagement
                 warningLabel.Visibility = Visibility.Hidden;
             }
         }
-        //previewing the text input in text box
-        //making sure that we don't allow user to enter special characters or alphabets
-        //displaying error message in a hidden label
-        //this will make sure only to allow integers in text box
-        private void PreviewTextInput2(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-            if (e.Handled == true)
-            {
-                warningLabel.Visibility = Visibility.Visible;
-                warningLabel.Content = "Only Numbers Are Allowed";
-            }
-            else
-            {
-                warningLabel.Content = "";
-                warningLabel.Visibility = Visibility.Hidden;
-            }
-        }
-
+     
         private void AddModelButton_Click(object sender, RoutedEventArgs e)
         {
-            TextBox[] textboxes = {modelNameTextBox, manufacturerTextBox,
-                                    seatsTextBox, doorstextBox};
+            TextBox[] textboxes = {modelNameTextBox, manufacturerTextBox};
             if(inputValidation.IsTextBoxEmpty(textboxes) == true)
             {
                 MessageBox.Show("Please fill in all the required information");
@@ -84,8 +64,8 @@ namespace TruckRental_Project.Veiw.StockManagement
                     NewModel.Model = modelNameTextBox.Text;
                     NewModel.Manufacturer = manufacturerTextBox.Text;
                     NewModel.Size = sizeComboBox.Text.ToLower();
-                    NewModel.Seats = int.Parse(seatsTextBox.Text);
-                    NewModel.Doors = int.Parse(doorstextBox.Text);
+                    NewModel.Seats = int.Parse(seatsComboBox.Text);
+                    NewModel.Doors = int.Parse(doorsComboBox.Text);
 
                     try
                     {
@@ -93,7 +73,7 @@ namespace TruckRental_Project.Veiw.StockManagement
                         MessageBox.Show("New truck model has been added to system Successfully");
                         truckModelsListBox.ItemsSource = ctx.TruckModels.ToList();
 
-                        inputValidation.ClearAllTextBoxes(inputStackPanel);
+                        inputValidation.clearAllInputs(inputStackPanel);
                     }
 
                     catch (Exception ex)

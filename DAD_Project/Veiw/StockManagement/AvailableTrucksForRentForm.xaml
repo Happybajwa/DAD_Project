@@ -25,7 +25,7 @@
              FontSize="14" Click="searchButton_Click">
             </Button>
         </StackPanel>
-        <Label Content="" x:Name="ErrorLabel" Foreground="Red" HorizontalAlignment="Center" Grid.Row="2"/>
+        <Label Content="" x:Name="ErrorLabel" Foreground="Red" FontSize="16" HorizontalAlignment="Center" Grid.Row="2"/>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
             <StackPanel Background="White" Margin="40 40" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                 <DataGrid x:Name="truckDataGrid" IsReadOnly="True" Margin="10 10 10 10" HorizontalAlignment="Center" Style="{DynamicResource DataGridStyle1}"

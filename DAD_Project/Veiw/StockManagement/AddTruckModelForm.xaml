@@ -30,8 +30,18 @@
                 <ComboBoxItem>Medium</ComboBoxItem>
                 <ComboBoxItem>Large</ComboBoxItem>
             </ComboBox>
-            <TextBox x:Name="seatsTextBox" Margin="10 10" Height="25" PreviewTextInput="PreviewTextInput2"/>
-            <TextBox x:Name="doorstextBox" Margin="10 10" Height="25" PreviewTextInput="PreviewTextInput2"/>
+            <ComboBox x:Name="seatsComboBox" Margin="10 10" Height="25">
+                <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                <ComboBoxItem>2</ComboBoxItem>
+                <ComboBoxItem>3</ComboBoxItem>
+                <ComboBoxItem>4</ComboBoxItem>
+            </ComboBox>
+            <ComboBox x:Name="doorsComboBox" Margin="10 10" Height="25">
+                <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                <ComboBoxItem>2</ComboBoxItem>
+                <ComboBoxItem>3</ComboBoxItem>
+                <ComboBoxItem>4</ComboBoxItem>
+            </ComboBox>
             <Label x:Name="warningLabel" Content="" Foreground="Red" Margin="10 -10"/>
             <Button x:Name="AddModelButton" Content="Add Truck Model" Height="30"
                      Background="CornflowerBlue" Foreground="White" Margin="10 10" Click="AddModelButton_Click"/>

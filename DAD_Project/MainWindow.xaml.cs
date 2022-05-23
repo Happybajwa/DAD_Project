@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAD_Project.Veiw;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,8 @@ namespace DAD_Project
         public MainWindow()
         {
             InitializeComponent();
+            mainWindowDashBoard form = new();
+            DisplayPanel.Children.Add(form);
         }
 
         private void StockManagementButton_Click(object sender, RoutedEventArgs e)
@@ -36,6 +39,13 @@ namespace DAD_Project
         private void CustomerManagementButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void logoutButtonButton_Click(object sender, RoutedEventArgs e)
+        {          
+            LoginPage page = new();
+            page.Show();
+            this.Close();
         }
     }
  

@@ -78,6 +78,7 @@ namespace DAD_Project.Veiw.StockManagement
             {
                 DAO.AddFeatureToTruck(truck, feature);
                 MessageBox.Show("Feature now has been added to truck");
+                TruckFeatureLable.Visibility = Visibility.Hidden;
                 var truckExistingFeatures = DAO.DoesTruckHasFeatureExistedAlready(truck.TruckId);
                 existingTruckFeatureListBox.ItemsSource = truckExistingFeatures.ToList();
             }

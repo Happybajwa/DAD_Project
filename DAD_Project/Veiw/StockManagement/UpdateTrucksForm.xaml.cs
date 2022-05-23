@@ -26,11 +26,12 @@ namespace TruckRental_Project.Veiw.StockManagement
         {
             InitializeComponent();
             this.updateButton.IsEnabled = false;
-            this.removeFeatureButton.IsEnabled = false;         
+            this.removeFeatureButton.IsEnabled = false;
+            updatePanel.Visibility = Visibility.Hidden;
         }
-        //previewing the text input in text box
-        //making sure that we don't allow user to enter special characters
-        //displaying error message in a hidden label
+        //PREVIEWING THE TEXT INPUT IN TEXT BOX
+        //MAKING SURE THAT WE DON'T ALLOW USER TO ENTER SPECIAL CHARACTERS
+        //DISPLAYING ERROR MESSAGE IN A HIDDEN LABEL
         private void PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^a-zA-Z0-9]+");
@@ -51,7 +52,7 @@ namespace TruckRental_Project.Veiw.StockManagement
             try
             {
                 var truck = truckListDataGrid.SelectedItem as IndividualTruck;
-                if(truck == null)
+                if (truck == null)
                 {
                     MessageBox.Show("Please Select a row to update truck information.");
                 }
@@ -59,40 +60,48 @@ namespace TruckRental_Project.Veiw.StockManagement
                 {
                     DAO.updateSelectedTruck(truck);
                     MessageBox.Show("Truck Info has been updated successfully.");
-                }    
+                    CollectionViewSource.GetDefaultView(truckListDataGrid.ItemsSource).Refresh();
+                }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("oops something went wrong"+ex.Message);
+                MessageBox.Show("OOPS SOMETHING WENT WRONG\n" + ex.Message);
             }
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            if(string.IsNullOrEmpty(truckModeltextBox.Text))
+            if (string.IsNullOrEmpty(truckModeltextBox.Text))
             {
                 MessageBox.Show("Please Enter Truck Model Number");
             }
             else
             {
-
-                var truckModel = DAO.searchTruckModelName(truckModeltextBox.Text);
-                if(truckModel == null)
+                try
                 {
-                    MessageBox.Show("Sorry, No Truck Model found by given model ID");
+                    var truckModel = DAO.searchTruckModelName(truckModeltextBox.Text);
+                    if (truckModel == null)
+                    {
+                        MessageBox.Show("Sorry, No Truck Model found by given model ID");
+                    }
+                    else
+                    {
+                        truckListDataGrid.ItemsSource = truckModel.IndividualTrucks.ToList();
+                        this.updateButton.IsEnabled = true;
+                        updatePanel.Visibility = Visibility.Visible;
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    truckListDataGrid.ItemsSource = truckModel.IndividualTrucks.ToList(); 
-                    this.updateButton.IsEnabled = true;
+                    MessageBox.Show(ex.Message);
                 }
             }
         }
 
         private void truckListDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(truckListDataGrid.SelectedItem == null)
+            if (truckListDataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Please Select a row");
             }
@@ -100,7 +109,7 @@ namespace TruckRental_Project.Veiw.StockManagement
             {
                 truck = truckListDataGrid.SelectedItem as IndividualTruck;
                 var features = DAO.searchTruckFeatureAssociationByTruckID(truck.TruckId);
-                if(features.Count == 0)
+                if (features.Count == 0)
                 {
                     ErrorLable.Content = "This Truck Does'nt have any features";
                     truckFeatureDataGrid.ItemsSource = features;
@@ -109,15 +118,15 @@ namespace TruckRental_Project.Veiw.StockManagement
                 else
                 {
                     ErrorLable.Content = "";
-                    truckFeatureDataGrid.ItemsSource = features; 
+                    truckFeatureDataGrid.ItemsSource = features;
                     this.removeFeatureButton.IsEnabled = true;
                 }
             }
         }
 
         private void removeFeatureButton_Click(object sender, RoutedEventArgs e)
-        {     
-            if(truckFeatureDataGrid.SelectedItem != null)
+        {
+            if (truckFeatureDataGrid.SelectedItem != null)
             {
                 var truckFeatureAssociation = truckFeatureDataGrid.SelectedItem as TruckFeatureAssociation;
                 DAO.RemoveTruckFeature(truckFeatureAssociation);
@@ -129,8 +138,21 @@ namespace TruckRental_Project.Veiw.StockManagement
             {
                 MessageBox.Show("Please select feature to remove from table.");
             }
-            
-            
+        }
+
+        //MAKING SURE THAT WE DONT ALLOW USER
+        //TO ADD ALPHBATIC VALUE IN DAILY RENT AND ADVANCE RENT DATAGRID CELL
+        private void DataGridCell_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                Convert.ToInt32(e.Text);
+            }
+            catch
+            {
+                e.Handled = true;
+            }
+
         }
     }
 }

@@ -10,8 +10,8 @@ namespace TruckRental_Project
 {
     internal class inputValidation
     {
-        /* Checking if all the text boxes those are required to save a new indidual truck in the system
-           at same time using textbox array and checking if any text is empty.*/ 
+        /* CHECKING IF ALL THE TEXT BOXES THOSE ARE REQUIRED TO SAVE A NEW INDIDUAL TRUCK IN THE SYSTEM
+           AT SAME TIME USING TEXTBOX ARRAY AND CHECKING IF ANY TEXT IS EMPTY.*/ 
         public static bool IsTextBoxEmpty(TextBox[] textboxes)
         {
             bool isEmpty = false;
@@ -30,8 +30,8 @@ namespace TruckRental_Project
         }
 
 
-        /* Checking that all the required dates to save a new truck
-            in the system are not null.  */
+        /* CHECKING THAT ALL THE REQUIRED DATES TO SAVE A NEW TRUCK
+            IN THE SYSTEM ARE NOT NULL.  */
         public static bool IsDatePickerEmpty(DatePicker[] date)
         {
             bool isEmpty = false;
@@ -47,37 +47,26 @@ namespace TruckRental_Project
                 }
             }
             return isEmpty;
-        }
+        }   
 
-
-        //Using Method to clear all the textboxes once operation has been successfull
-        public static void ClearAllTextBoxes(StackPanel stack)
+        //USING METHOD TO CLEAR ALL THE INPUTS ONCE OPERATION HAS BEEN SUCCESSFUL
+        public static void clearAllInputs(StackPanel stack)
         {
             foreach (Control ctr in stack.Children)
             {
-                if (ctr.GetType().Name == "TextBox")
-                {
-                    TextBox t = (TextBox)ctr;
-                    {
-                        t.Text = "";
-                    }
-                }
-            }
-        }
-
-        //Using Method to clear all the date pickers once operation has been successfull
-        public static void clearDatePickers(StackPanel stack)
-        {
-            foreach (Control ctr in stack.Children)
-            {
-
                 if (ctr.GetType().Name == "DatePicker")
                 {
                     DatePicker d = (DatePicker)ctr;
                     {
                         d.SelectedDate = null;
                     }
-
+                }
+                else if (ctr.GetType().Name == "TextBox")
+                {
+                    TextBox t = (TextBox)ctr;
+                    {
+                        t.Text = "";
+                    }
                 }
             }
         }
