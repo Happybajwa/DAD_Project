@@ -5,48 +5,47 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace TruckRental_Project
 {
-    internal class inputValidation
+    internal class Utility
     {
-        /* CHECKING IF ALL THE TEXT BOXES THOSE ARE REQUIRED TO SAVE A NEW INDIDUAL TRUCK IN THE SYSTEM
-           AT SAME TIME USING TEXTBOX ARRAY AND CHECKING IF ANY TEXT IS EMPTY.*/ 
-        public static bool IsTextBoxEmpty(TextBox[] textboxes)
+        //CHECKING THAT TEXTBOXES AND DATEPICKERS ARE NOT WMPTY WHILE ADDING A NEW TRUCK IN THE SYSTEM
+        //IS ANY IS EMPTY ERROR WILL BE DIPLAYED ALONG WITG THE RED BORDER ON INPUT BOX
+        public static string isTextBoxAndDatePickerAreEmpty(Panel panel)
         {
-            bool isEmpty = false;
-            foreach(var textbox in textboxes)
-            {
-                if(string.IsNullOrEmpty(textbox.Text))
+            string output = "";
+            foreach (Control ctr in panel.Children)
+            { 
+                if (ctr.GetType().Name == "TextBox")
                 {
-                    isEmpty = true;
+                    TextBox textbox = (TextBox)ctr;
+                    if (string.IsNullOrEmpty(textbox.Text))
+                    {
+                        output += textbox.Uid +"\n";
+                        textbox.BorderBrush = Brushes.Red;
+                    }    
+                    else
+                    {
+                        textbox.BorderBrush = Brushes.Green;
+                    }
                 }
-                else
+                else if (ctr.GetType().Name == "DatePicker")
                 {
-                    isEmpty = false;
+                    DatePicker datePicker = (DatePicker)ctr;
+                    if (datePicker.SelectedDate == null)
+                    {
+                        output += datePicker.Uid + "\n";
+                        datePicker.BorderBrush = Brushes.Red;
+                    }
+                    else
+                    {
+                        datePicker.BorderBrush = Brushes.Green;
+                    }
                 }
             }
-            return isEmpty;   
-        }
-
-
-        /* CHECKING THAT ALL THE REQUIRED DATES TO SAVE A NEW TRUCK
-            IN THE SYSTEM ARE NOT NULL.  */
-        public static bool IsDatePickerEmpty(DatePicker[] date)
-        {
-            bool isEmpty = false;
-            foreach(var datePicker in date)
-            {
-                if(datePicker.SelectedDate == null)
-                {
-                    isEmpty = true;
-                }
-                else
-                {
-                    isEmpty = false;
-                }
-            }
-            return isEmpty;
+            return output;
         }   
 
         //USING METHOD TO CLEAR ALL THE INPUTS ONCE OPERATION HAS BEEN SUCCESSFUL
@@ -56,16 +55,18 @@ namespace TruckRental_Project
             {
                 if (ctr.GetType().Name == "DatePicker")
                 {
-                    DatePicker d = (DatePicker)ctr;
+                    DatePicker datePicker = (DatePicker)ctr;
                     {
-                        d.SelectedDate = null;
+                        datePicker.SelectedDate = null;
+                        datePicker.BorderBrush = Brushes.CornflowerBlue;
                     }
                 }
                 else if (ctr.GetType().Name == "TextBox")
                 {
-                    TextBox t = (TextBox)ctr;
+                    TextBox textBox = (TextBox)ctr;
                     {
-                        t.Text = "";
+                        textBox.Text = "";
+                        textBox.BorderBrush = Brushes.CornflowerBlue;
                     }
                 }
             }

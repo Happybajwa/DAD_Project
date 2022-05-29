@@ -23,8 +23,8 @@
             <Label Content="Existing Truck Models" Margin="10 150 10 50"/>
         </StackPanel>
         <StackPanel x:Name="inputStackPanel" Background="White" Margin="20 20" Grid.Column="1" ScrollViewer.CanContentScroll="True">
-            <TextBox x:Name="modelNameTextBox" Margin="10 10" Height="25" PreviewTextInput="PreviewTextInput"/>
-            <TextBox x:Name="manufacturerTextBox"  Margin="10 10" Height="25" PreviewTextInput="PreviewTextInput"/>
+            <TextBox x:Name="modelNameTextBox" Margin="10 10" Height="25" Uid="Model Name" PreviewTextInput="PreviewTextInput"/>
+            <TextBox x:Name="manufacturerTextBox"  Margin="10 10" Uid="Manufacturer Name" Height="25" PreviewTextInput="PreviewTextInputAlphabets"/>
             <ComboBox x:Name="sizeComboBox" Margin="10 10" Height="25">
                 <ComboBoxItem IsSelected="True">Standard</ComboBoxItem>
                 <ComboBoxItem>Medium</ComboBoxItem>
@@ -35,6 +35,7 @@
                 <ComboBoxItem>2</ComboBoxItem>
                 <ComboBoxItem>3</ComboBoxItem>
                 <ComboBoxItem>4</ComboBoxItem>
+                <ComboBoxItem>5</ComboBoxItem>
             </ComboBox>
             <ComboBox x:Name="doorsComboBox" Margin="10 10" Height="25">
                 <ComboBoxItem IsSelected="True">1</ComboBoxItem>

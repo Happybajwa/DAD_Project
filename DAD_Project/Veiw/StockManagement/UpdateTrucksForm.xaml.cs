@@ -146,13 +146,13 @@ namespace TruckRental_Project.Veiw.StockManagement
         {
             try
             {
-                Convert.ToInt32(e.Text);
+                Regex regex = new Regex("[^0-9.]+");
+                e.Handled = regex.IsMatch(e.Text);               
             }
             catch
             {
                 e.Handled = true;
             }
-
         }
     }
 }

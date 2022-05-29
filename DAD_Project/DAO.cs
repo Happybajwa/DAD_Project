@@ -109,6 +109,7 @@ namespace TruckRental_Project
             }
         }
 
+        //SEARCHING TRUCK BY STATUS
         public static List<IndividualTruck> SearchTruckByStatus(string status)
         {
             using (DAD_HarpreetContext ctx = new())
@@ -141,7 +142,7 @@ namespace TruckRental_Project
 
         //PERFORMING SEARCH TO KNOW IF TRUCK ALREADY HAVE SOME FEATURES OR NOT
         //FOR THAT WE ARE USING TRUCK ID AS WE KNOW TRUCK FEATURE ASSOCIATION ONLY HAVE TRUCK ID AND FEATURE ID
-        public static List<TruckFeatureAssociation> DoesTruckHasFeatureExistedAlready(int truckId)
+        public static List<TruckFeatureAssociation> GetAllTruckFeaturesByTruckID(int truckId)
         {
             using (DAD_HarpreetContext ctx = new())
             {

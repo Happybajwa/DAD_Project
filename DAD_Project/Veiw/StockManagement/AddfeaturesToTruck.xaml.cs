@@ -48,7 +48,7 @@ namespace DAD_Project.Veiw.StockManagement
                 {
                     TruckModelLable.Content = "Truck Model:  " + truck.TruckModel.Model.ToString();
                     TruckMenfLable.Content = "Truck Manufacturer year:  " + truck.ManufactureYear.ToString();
-                    var truckExistingFeatures = DAO.DoesTruckHasFeatureExistedAlready(truck.TruckId);
+                    var truckExistingFeatures = DAO.GetAllTruckFeaturesByTruckID(truck.TruckId);
                     afterSearchPanel.Visibility = Visibility.Visible;
                     if (truckExistingFeatures.Count == 0)
                     {
@@ -78,8 +78,9 @@ namespace DAD_Project.Veiw.StockManagement
             {
                 DAO.AddFeatureToTruck(truck, feature);
                 MessageBox.Show("Feature now has been added to truck");
+                addFeatureToTruckButton.IsEnabled = false;
                 TruckFeatureLable.Visibility = Visibility.Hidden;
-                var truckExistingFeatures = DAO.DoesTruckHasFeatureExistedAlready(truck.TruckId);
+                var truckExistingFeatures = DAO.GetAllTruckFeaturesByTruckID(truck.TruckId);
                 existingTruckFeatureListBox.ItemsSource = truckExistingFeatures.ToList();
             }
         }
@@ -106,6 +107,6 @@ namespace DAD_Project.Veiw.StockManagement
                 warningLabel.Content = "";
                 warningLabel.Visibility = Visibility.Hidden;
             }
-        }
+        }   
     }
 }

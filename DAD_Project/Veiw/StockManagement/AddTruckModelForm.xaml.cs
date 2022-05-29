@@ -48,13 +48,28 @@ namespace TruckRental_Project.Veiw.StockManagement
                 warningLabel.Visibility = Visibility.Hidden;
             }
         }
-     
+        private void PreviewTextInputAlphabets(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-zA-Z]+");
+            e.Handled = regex.IsMatch(e.Text);
+            if (e.Handled == true)
+            {
+                warningLabel.Visibility = Visibility.Visible;
+                warningLabel.Content = "Only Alphabets are allowed";
+            }
+            else
+            {
+                warningLabel.Content = "";
+                warningLabel.Visibility = Visibility.Hidden;
+            }
+        }
+
         private void AddModelButton_Click(object sender, RoutedEventArgs e)
         {
-            TextBox[] textboxes = {modelNameTextBox, manufacturerTextBox};
-            if(inputValidation.IsTextBoxEmpty(textboxes) == true)
+            string error = Utility.isTextBoxAndDatePickerAreEmpty(inputStackPanel);
+            if(!string.IsNullOrEmpty(error))
             {
-                MessageBox.Show("Please fill in all the required information");
+                MessageBox.Show("Please fill in \n"+error);
             }
             else
             {
@@ -73,7 +88,7 @@ namespace TruckRental_Project.Veiw.StockManagement
                         MessageBox.Show("New truck model has been added to system Successfully");
                         truckModelsListBox.ItemsSource = ctx.TruckModels.ToList();
 
-                        inputValidation.clearAllInputs(inputStackPanel);
+                        Utility.clearAllInputs(inputStackPanel);
                     }
 
                     catch (Exception ex)

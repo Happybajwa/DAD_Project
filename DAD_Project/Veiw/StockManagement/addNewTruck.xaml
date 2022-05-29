@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="750" d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="30"/>
@@ -45,11 +45,11 @@
             <Label Content="Select Truck Model" Padding="10" Margin="20 50 20 15" />
         </StackPanel>
         <StackPanel x:Name="addNewTruckPanel" Background="White" Grid.Row="2" Grid.ColumnSpan="3" Margin="207,0,0,2">
-            <TextBox x:Name="registraionTextBox" Margin="10 5 35 5" Height="25" BorderThickness="1" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInput"/>
-            <TextBox x:Name="colourTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputAlphabetsOnly"/>
-            <DatePicker Name="WOFDatePicker" DisplayDateStart="{x:Static sys:DateTime.Today}" ToolTip="Past Dates Are Disabled, Should have current WOF" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
-            <DatePicker Name="RegistrationExpiryDatePicker" ToolTip="Past Dates Are Disabled,Should have current registration" DisplayDateStart="{x:Static sys:DateTime.Today}" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
-            <DatePicker Name="ImportDatePicker" Height="25" ToolTip="Import Date cannot be in future" DisplayDateEnd="{x:Static sys:DateTime.Now}" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <TextBox x:Name="registraionTextBox" Uid="Truck Registration" Margin="10 5 35 5" Height="25" BorderThickness="1" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInput"/>
+            <TextBox x:Name="colourTextBox" Uid="Truck Colour" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputAlphabetsOnly"/>
+            <DatePicker Name="WOFDatePicker" Uid="WOF Expiry Date" DisplayDateStart="{x:Static sys:DateTime.Today}" ToolTip="Past Dates Are Disabled, Should have current WOF" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <DatePicker Name="RegistrationExpiryDatePicker" Uid="Registration Expiry Date" ToolTip="Past Dates Are Disabled,Should have current registration" DisplayDateStart="{x:Static sys:DateTime.Today}" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
+            <DatePicker Name="ImportDatePicker" Height="25" Uid="Import Date"  ToolTip="Import Date cannot be in future" DisplayDateEnd="{x:Static sys:DateTime.Now}" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
             <ComboBox x:Name="ManufacturingCombobox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue"/>
             <ComboBox Name="statusComboBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue">
                 <ComboBoxItem IsSelected="True">Available for rent</ComboBoxItem>
@@ -62,8 +62,8 @@
                 <ComboBoxItem  IsSelected="True">Manual</ComboBoxItem>
                 <ComboBoxItem>Automatic</ComboBoxItem>
             </ComboBox>
-            <TextBox x:Name="DailyRentTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputIntegerOnly"/>
-            <TextBox x:Name="advanceDepositeTextBox" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputIntegerOnly"/>
+            <TextBox x:Name="DailyRentTextBox" Uid="Daily Rent" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputIntegerOnly"/>
+            <TextBox x:Name="advanceDepositeTextBox" Uid="Advance Rent" Height="25" Margin="10 5 35 5" BorderBrush="CornflowerBlue" PreviewTextInput="PreviewTextInputIntegerOnly"/>
             <ListBox x:Name="truckModelListBox" Height="150" Margin="10 5 35 5" ScrollViewer.CanContentScroll="True" BorderBrush="CornflowerBlue" SelectionMode="Single">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

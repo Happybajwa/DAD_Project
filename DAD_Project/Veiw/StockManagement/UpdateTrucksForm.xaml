@@ -102,7 +102,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            <Label Foreground="Red" Content="Note: TruckiD, Registration are readable only(Cannot be updated)." FontSize="16" HorizontalAlignment="Center"/>
+            <Label Foreground="Red" Content="Note: TruckID, Registration are readable only(Cannot be updated)." FontSize="16" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Window>

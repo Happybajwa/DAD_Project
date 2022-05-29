@@ -31,9 +31,17 @@ namespace TruckRental_Project.Veiw.StockManagement
                 truckModelListBox.ItemsSource = ctx.TruckModels.ToList();
                 //SETTING THE YEAR FROM 1950 TO CURRENT YEAR IN COMBOBOX TO
                 //AVOID RISK FROM USER TO ENTER THE YEAR WRONG VALUE
-                ManufacturingCombobox.ItemsSource = Enumerable.Range(1950, DateTime.UtcNow.Year - 1950).Reverse().ToList();
+                //To add year 2022 we had do perform it manually
+                //using date time and adding 1 year to it
+                //As dateTime.Now give us only 2021
+                DateTime theDate = DateTime.Now;
+                var currentYear = DateTime.Now.Year;
+                theDate = theDate.AddYears(1);
+                var futureYear = theDate.Year;
+                ManufacturingCombobox.ItemsSource = Enumerable.Range(1950, futureYear - 1950).Reverse().ToList();
                 //SETTING DEFAULT SELECTED VALUE FOR COMBO BOX
-                ManufacturingCombobox.SelectedValue = 2020;
+                ManufacturingCombobox.SelectedValue = 2022;
+
             }
         }
      
@@ -41,7 +49,6 @@ namespace TruckRental_Project.Veiw.StockManagement
         {
             AvailableTrucksForRentForm availableTrucksForRentForm = new AvailableTrucksForRentForm();
             availableTrucksForRentForm.ShowDialog();
-
         }
 
         private void addTruckModelMenu(object sender, RoutedEventArgs e)
@@ -126,20 +133,18 @@ namespace TruckRental_Project.Veiw.StockManagement
         }
         private void addNewTruckButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            //CREATING A TEXTBOX ARRAY TO CHECK NONE OF THE TEXT BOX IS EMPTY
-            TextBox[] checkAllTextBoxes = {registraionTextBox, colourTextBox,
-                DailyRentTextBox, advanceDepositeTextBox};
-
-            //CREATING A DATEPICKER ARRAY TO CHECK NONE OF THE DATE PICKER IS EMPTY
-            DatePicker[] checkAllDatePickers = {WOFDatePicker,
-                RegistrationExpiryDatePicker, ImportDatePicker};
-
-            if(inputValidation.IsTextBoxEmpty(checkAllTextBoxes) || inputValidation.IsDatePickerEmpty(checkAllDatePickers)
-               || truckModelListBox.SelectedItem == null)
+            string error = Utility.isTextBoxAndDatePickerAreEmpty(addNewTruckPanel);
+            //IF ERROR STRING IS NOT EPMTY THATS MEAN USER HAS LEFT SOME INPUT BOX EMPTY
+            //SO ERROR IS DISPLAYED USIND UID
+            if (!string.IsNullOrEmpty(error))
             {
-                MessageBox.Show("Please make sure that all the required information is provided\n" +
-                    "Note:\n 1. Input boxes and Dates cant be left empty.\n 2. WOF & Registration Dates Cannot be in past");
+                MessageBox.Show("Please fill the required information in \n"+error);
+            }
+            //ALSO CHECKING THAT USER HAS SELECT A TRUCK MODEL FROM GIVEN LIST
+            //IF NOT ERROR IS DISPLAYED
+            else if (truckModelListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please Select the truck model from list.");
             }
             else
             {
@@ -162,7 +167,7 @@ namespace TruckRental_Project.Veiw.StockManagement
               
                     DAO.AddNewTruck(NewTruck);
                     MessageBox.Show("Truck has been added to system successfully");
-                    inputValidation.clearAllInputs(addNewTruckPanel);
+                    Utility.clearAllInputs(addNewTruckPanel);
                 }
                 catch (Exception ex)
                 {
