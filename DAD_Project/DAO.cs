@@ -13,6 +13,7 @@ namespace TruckRental_Project
 {
     internal class DAO
     {
+    //----------------------------------------------------------------------------------------------------//
         public static bool CheckTruckRegoExists(string registration)
         {
             //CHECKING IF A TRUCK IS ALREADY IN SYSTEM WITH THE SAME REGISTRATION NUMBER
@@ -31,6 +32,8 @@ namespace TruckRental_Project
                 }       
             }
         }
+
+    //----------------------------------------------------------------------------------------------------//
         public static void AddNewTruck(IndividualTruck truck)
         {
             //ADDING INDIVIDUAL TRUCK IN DATABASE
@@ -50,7 +53,8 @@ namespace TruckRental_Project
                 
             }
         }
-        
+
+    //----------------------------------------------------------------------------------------------------//   
         /* ADDING A NEW TRUCK MODEL IN THE DATABASE. BEFORE ADDING WE ARE CHECKING THAT TRUCK MODEL
            DOESNT EXISTS IN THE SYSTEM ALREADY. IF IT DOES WE WILL SIMPLY SHOW USER AN ERROR THAT THIS
            TRUCK MODEL ALREADY EXISTS IN THE SYSTEM.      
@@ -71,6 +75,7 @@ namespace TruckRental_Project
             }
         }
 
+     //----------------------------------------------------------------------------------------------------//
         /* CHECKING THAT IF A TRUCK MODEL ALREADY IN THE SYSTEM. WE CAN NOT HAVE TWO TRUCK MODEL
             WITH SAME NAME IN THE SYSTEM.
          */
@@ -91,6 +96,7 @@ namespace TruckRental_Project
             }
         }
 
+    //----------------------------------------------------------------------------------------------------//
         //SEARCHING THE TRUCK MODEL NUMBER WITH MODEL NAME
         public static TruckModel searchTruckModelName(string name)
         {
@@ -109,6 +115,8 @@ namespace TruckRental_Project
             }
         }
 
+    //----------------------------------------------------------------------------------------------------//
+
         //SEARCHING TRUCK BY STATUS
         public static List<IndividualTruck> SearchTruckByStatus(string status)
         {
@@ -117,8 +125,9 @@ namespace TruckRental_Project
                 var trucks = ctx.IndividualTrucks.Include(tm => tm.TruckModel).Where(m => m.Status == status).ToList();
                 return trucks;
             }
-        }  
+        }
 
+    //----------------------------------------------------------------------------------------------------//
 
         //ADDING A FEATURE TO TRUCK BEFORE ADDING WE ARE CHECKING THAT
         //TRUCK AND FEATURE ARE NOT NULL IN PARAMETERS
@@ -139,6 +148,7 @@ namespace TruckRental_Project
             }
         }
 
+    //----------------------------------------------------------------------------------------------------//
 
         //PERFORMING SEARCH TO KNOW IF TRUCK ALREADY HAVE SOME FEATURES OR NOT
         //FOR THAT WE ARE USING TRUCK ID AS WE KNOW TRUCK FEATURE ASSOCIATION ONLY HAVE TRUCK ID AND FEATURE ID
@@ -149,6 +159,8 @@ namespace TruckRental_Project
                 return ctx.TruckFeatureAssociations.Include(feature => feature.Feature).Where(truck => truck.TruckId == truckId).ToList();
             }
         }
+
+     //----------------------------------------------------------------------------------------------------//
 
         //HERE WE ARE CHECKING THAT IS USER ASSIGNING THE SAME FEATURE TO TRUCK THAT TRUCK ALREADY HAS
         public static bool DoesTruckHasThisFeatureAlready(int truckId, int featureId)
@@ -166,10 +178,12 @@ namespace TruckRental_Project
                 }
             }
         }
+
+    //----------------------------------------------------------------------------------------------------//
+        //WE ARE CHECKING IF THE FEATURE WE ARE TRYING TO ADD IN SYSTEM -
+        //ALREADY EXISTS IN THE SYSTEM
         public static bool IsTruckFeatureExistsInSystem(string feature)
-        {
-            //WE ARE CHECKING IF THE FEATURE WE ARE TRYING TO ADD IN SYSTEM -
-            //ALREADY EXISTS IN THE SYSTEM
+        {       
             using (DAD_HarpreetContext ctx = new())
             {
                 var ExistingFeature = ctx.TruckFeatures.Where(f => f.Description.ToLower().Equals(feature.ToLower())).FirstOrDefault();
@@ -184,6 +198,8 @@ namespace TruckRental_Project
             }
         }
 
+    //----------------------------------------------------------------------------------------------------//
+
         //HERE WE ARE SEARCHING THAT EXISTING TRUCK USING ITS REGISTRATION NUMBER
         public static IndividualTruck getTruckByRegistrationNumber(string rego)
         {
@@ -193,6 +209,8 @@ namespace TruckRental_Project
             }
         }
 
+    //----------------------------------------------------------------------------------------------------//
+
         //WE ARE RETURING A LIST OF ALL AVAILABLE TRUCK FEATURES IN THE SYSTEM
         public static List<TruckFeature> getAllTruckFeatures()
         {
@@ -201,6 +219,8 @@ namespace TruckRental_Project
                 return ctx.TruckFeatures.ToList();
             }
         }
+
+    //----------------------------------------------------------------------------------------------------//
 
         //SEARCHING TRUCK AND FEATURE ASSOCIATION USING TRUCK ID
         //IT WILL RETURN US ALL FEATURES LINKED TO THE GIVEN TRUCK ID
@@ -212,6 +232,8 @@ namespace TruckRental_Project
             }
         }
 
+    //----------------------------------------------------------------------------------------------------//
+
         //THIS METHOD WILL REMOVE TRUCK'S EXISTING FEATURE
         public static void RemoveTruckFeature(TruckFeatureAssociation feature)
         {
@@ -222,24 +244,57 @@ namespace TruckRental_Project
             }
         }
 
+    //----------------------------------------------------------------------------------------------------//
+
+        //Validating truck daily rent and advance deposit for 
+        //updating purposes
+        public static bool isRentalPriceOkay(decimal rent, decimal advance)
+        {
+            if(rent < 50 || advance < 50)
+            {
+                return false;
+            }
+            else if(rent > 1500 || advance > 5000)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+    //----------------------------------------------------------------------------------------------------//
+
         //UPDATING TRUCK  INFORMATION
         public static void updateSelectedTruck(IndividualTruck truck)
         {
             Regex isString = new Regex(@"^[a-zA-Z]+");
-
-            if (isString.IsMatch(truck.Colour))
+            try
             {
-                using (DAD_HarpreetContext ctx = new())
+                if (isString.IsMatch(truck.Colour) && isRentalPriceOkay(truck.DailyRentalPrice, truck.AdvanceDepositRequired))
                 {
-                    ctx.Entry(truck).State = EntityState.Modified;
-                    ctx.SaveChanges();
+                    using (DAD_HarpreetContext ctx = new())
+                    {
+                        ctx.Entry(truck).State = EntityState.Modified;
+                        ctx.SaveChanges();
+                    }
+                }
+                else
+                {
+                    throw new Exception("OOPS Something went wrong.\n"
+                        + "Note:1. Daily rent and advance rent cannot be less than $50\n"
+                        + "2. Daily Rent cannot be greater then $1500\n3. advance rent greater than $5000 ");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                throw new Exception("Please make sure all the values are in correct format");
-            } 
+                MessageBox.Show(ex.Message);
+            }
+          
         }
+
+    //----------------------------------------------------------------------------------------------------//
 
         //GETTING TRUCK EMPLOYEE WITH USERNAME AND PASSWORD
         //FOR LOGIN PAGE
@@ -259,6 +314,7 @@ namespace TruckRental_Project
             }
         }
 
+    //----------------------------------------------------------------------------------------------------//
 
         //LIST OF ALL TO FOR DASHBOARD VIEW
         public static List<IndividualTruck> getAllTruck()
@@ -268,5 +324,6 @@ namespace TruckRental_Project
                 return ctx.IndividualTrucks.ToList();
             }
         }
+
     }
 }

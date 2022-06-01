@@ -53,7 +53,7 @@ namespace TruckRental_Project.Veiw.StockManagement
                 var features = DAO.searchTruckFeatureAssociationByTruckID(truck.TruckId);
                 if (features.Count == 0)
                 {
-                    ErrorLabel.Content = "This Truck Does'nt have any features";
+                    ErrorLabel.Content = "This Truck Doesn't have any features";
                     truckFeatureDataGrid.ItemsSource = features;
                 }
                 else

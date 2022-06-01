@@ -93,6 +93,9 @@ namespace TruckRental_Project.Veiw.StockManagement
                 warningLabel.Visibility = Visibility.Hidden;
             }
         }
+
+
+
         //PREVIEWING THE TEXT INPUT IN TEXT BOX
         //MAKING SURE THAT WE DON'T ALLOW USER TO ENTER SPECIAL CHARACTERS OR ALPHABETS
         //DISPLAYING ERROR MESSAGE IN A HIDDEN LABEL
@@ -112,6 +115,8 @@ namespace TruckRental_Project.Veiw.StockManagement
                 warningLabel.Visibility = Visibility.Hidden;
             }
         }
+
+
         //PREVIEWING THE TEXT INPUT IN TEXT BOX
         //MAKING SURE THAT WE DON'T ALLOW USER TO ENTER SPECIAL CHARACTERS OR INTEGERS
         //DISPLAYING ERROR MESSAGE IN A HIDDEN LABEL
@@ -131,6 +136,8 @@ namespace TruckRental_Project.Veiw.StockManagement
                 warningLabel.Visibility = Visibility.Hidden;
             }
         }
+
+
         private void addNewTruckButton_Click(object sender, RoutedEventArgs e)
         {
             string error = Utility.isTextBoxAndDatePickerAreEmpty(addNewTruckPanel);

@@ -45,24 +45,24 @@
                         <DataGridTemplateColumn Header="WOF Expiry">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=WofexpiryDate, StringFormat=\{0:dd.MM.yy\}}"></TextBlock>
+                                    <TextBlock Text="{Binding Path=WofexpiryDate, Mode=TwoWay, StringFormat=\{0:dd.MM.yy\}}"></TextBlock>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.CellEditingTemplate>
                                 <DataTemplate>
-                                    <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" ToolTip="Past Dates Are Disabled, Should have current WOF" SelectedDate="{Binding WOFexpiryDate}" />
+                                    <DatePicker SelectedDate="{Binding WofexpiryDate}"  DisplayDateStart="{x:Static sys:DateTime.Today}" ToolTip="Past Dates Are Disabled, Should have current WOF" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellEditingTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Rego Expiry">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=RegistrationExpiryDate, StringFormat=\{0:dd.MM.yy\}}"></TextBlock>
+                                    <TextBlock Text="{Binding Path=RegistrationExpiryDate,Mode=TwoWay, StringFormat=\{0:dd.MM.yy\}}"></TextBlock>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.CellEditingTemplate>
                                 <DataTemplate>
-                                    <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" ToolTip="Past Dates Are Disabled, Should have current WOF" SelectedDate="{Binding WOFexpiryDate}" />
+                                    <DatePicker SelectedDate="{Binding RegistrationExpiryDate}" DisplayDateStart="{x:Static sys:DateTime.Today}" ToolTip="Past Dates Are Disabled, Should have current WOF"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellEditingTemplate>
                         </DataGridTemplateColumn>
@@ -81,7 +81,7 @@
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Advance Rent">
                             <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
+                                <DataTemplate x:Name="dailyrent">
                                     <TextBlock Text="{Binding Path=AdvanceDepositRequired, StringFormat={}{0:n2}}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

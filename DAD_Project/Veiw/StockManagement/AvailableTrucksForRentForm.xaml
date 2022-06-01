@@ -33,7 +33,9 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Registration No" Binding="{Binding Path=RegistrationNumber}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Model" Binding="{Binding Path=TruckModel.Model}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Seats" Binding="{Binding Path=TruckModel.Seats}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Doors" Binding="{Binding Path=TruckModel.Doors}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Fuel type" Binding="{Binding Path=FuelType}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Color" Binding="{Binding Path=Colour}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Daily Rent" Binding="{Binding Path=DailyRentalPrice}"></DataGridTextColumn>

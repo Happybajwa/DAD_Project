@@ -38,7 +38,7 @@ namespace DAD_Project
 
         private void CustomerManagementButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Sorry Not Available\nI have only completed Stock Management Part");
         }
 
         private void logoutButtonButton_Click(object sender, RoutedEventArgs e)
@@ -46,6 +46,16 @@ namespace DAD_Project
             LoginPage page = new();
             page.Show();
             this.Close();
+        }
+
+        private void EmployeeManagementButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Sorry Not Available\nI have only completed Stock Management Part");
+        }
+
+        private void RentalManagementButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Sorry Not Available\nI have only completed Stock Management Part");
         }
     }
  

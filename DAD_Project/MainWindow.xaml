@@ -60,7 +60,7 @@
                             </Border>
                             <Button Name="EmployeeManagementButton" Content="Employee Management" FontFamily="Century Gothic"
                                     Foreground="white" Background="CornflowerBlue" BorderThickness="0"
-                                    Padding="0 15" Margin="0" Width="170" FontSize="11">
+                                    Padding="0 15" Margin="0" Width="170" FontSize="11" Click="EmployeeManagementButton_Click">
                             </Button>
                         </StackPanel>
                     </Border>
@@ -75,7 +75,7 @@
                             </Border>
                             <Button Name="RentalManagementButton" Content="Rental Management" FontFamily="Century Gothic"
                                     Foreground="white" Background="CornflowerBlue" BorderThickness="0"
-                                    Padding="0 15" Margin="0" Width="170" FontSize="11">
+                                    Padding="0 15" Margin="0" Width="170" FontSize="11" Click="RentalManagementButton_Click">
                             </Button>
                         </StackPanel>
                     </Border>

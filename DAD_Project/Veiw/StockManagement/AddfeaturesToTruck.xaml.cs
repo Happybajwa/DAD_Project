@@ -53,9 +53,11 @@ namespace DAD_Project.Veiw.StockManagement
                     if (truckExistingFeatures.Count == 0)
                     {
                         TruckFeatureLable.Content = "This Truck Doesn't have any features";
+                        existingTruckFeatureListBox.ItemsSource = truckExistingFeatures.ToList();
                     }
                     else
                     {
+                        TruckFeatureLable.Content = "";
                         existingTruckFeatureListBox.ItemsSource = truckExistingFeatures.ToList();
                     }
                 }

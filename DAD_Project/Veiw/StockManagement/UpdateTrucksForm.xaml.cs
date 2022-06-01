@@ -47,6 +47,7 @@ namespace TruckRental_Project.Veiw.StockManagement
                 warningLabel.Visibility = Visibility.Hidden;
             }
         }
+
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -54,15 +55,13 @@ namespace TruckRental_Project.Veiw.StockManagement
                 var truck = truckListDataGrid.SelectedItem as IndividualTruck;
                 if (truck == null)
                 {
-                    MessageBox.Show("Please Select a row to update truck information.");
-                }
+                    MessageBox.Show("Please Select a row to update truck information."); 
+                }               
                 else
                 {
                     DAO.updateSelectedTruck(truck);
                     MessageBox.Show("Truck Info has been updated successfully.");
-                    CollectionViewSource.GetDefaultView(truckListDataGrid.ItemsSource).Refresh();
                 }
-
             }
             catch (Exception ex)
             {
@@ -87,7 +86,12 @@ namespace TruckRental_Project.Veiw.StockManagement
                     }
                     else
                     {
-                        truckListDataGrid.ItemsSource = truckModel.IndividualTrucks.ToList();
+                        var trucks = truckModel.IndividualTrucks.ToList();
+                        if(trucks.Count == 0)
+                        {
+                            MessageBox.Show("No truck has registered under this truck model name");
+                        }
+                        truckListDataGrid.ItemsSource = trucks;
                         this.updateButton.IsEnabled = true;
                         updatePanel.Visibility = Visibility.Visible;
                     }
